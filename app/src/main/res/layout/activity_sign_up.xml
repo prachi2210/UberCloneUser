@@ -140,12 +140,14 @@
                 android:textColor="@color/text_grey" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins"
                 android:layout_toEndOf="@+id/tv"
                 android:text="@string/log_in"
+                android:onClick="onClick"
 
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black" />

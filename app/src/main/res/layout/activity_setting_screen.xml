@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.me.SettingScreen">
+
+    <include
+        android:id="@+id/include_action_bar"
+        layout="@layout/custom_action_bar" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_notifications"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/show_notificatons"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_14ssp"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_action_bar"
+
+
+        />
+
+
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:switchMinWidth="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:thumb="@drawable/thumb_selector"
+        app:track="@drawable/track_selector"
+        android:checked="true"
+        app:thumbTint="@color/white"
+        app:trackTintMode="multiply"
+        android:paddingBottom="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="@+id/tv_notifications"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_change_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_14ssp"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_notifications"
+
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_change_password"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:onClick="onClick"
+        android:src="@drawable/ic_right_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_notifications"
+
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

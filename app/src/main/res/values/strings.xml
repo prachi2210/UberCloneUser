@@ -17,4 +17,24 @@
     <string name="day">Day</string>
     <string name="hourly">Hourly</string>
     <string name="regular">Regular</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="me">Me</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="my_booking">My Booking</string>
+    <string name="book">Book</string>
+    <string name="no_data_found">No Data Found</string>
+    <string name="edit_your_profile_details">Edit your profile details</string>
+
+
+    <string name="my_account_panel">Please drop us a mail mentioning the panel you
+    would like us to complain about. we will take an action and get back to you asap.
+
+    </string>
+
+    <string name="show_notificatons">Notifications</string>
+
 </resources>
