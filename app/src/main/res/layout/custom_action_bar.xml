@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_action_bar"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/_15sdp"
+    android:paddingTop="@dimen/_5sdp">
+
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:onClick="onClick"
+        android:background="@drawable/ic_baseline_arrow_back_24"
+        android:backgroundTint="@color/black"
+        android:padding="@dimen/_8sdp" />
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="Edit Profile"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_16ssp"
+
+        />
+
+
+</RelativeLayout>
+
