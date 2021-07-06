@@ -100,6 +100,54 @@
         android:background="@drawable/dummy">
 
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/drawable_white_curve"
+            android:elevation="5dp"
+            android:padding="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/poppins"
+                android:text="16th Avenue 4th Cross Street"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/text_grey"
+                android:fontFamily="@font/poppins"
+                android:layout_marginTop="15dp"
+                android:text="Destination please?"
+                android:layout_height="wrap_content"/>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/poppins_medium"
+            android:elevation="5dp"
+            android:gravity="center_vertical"
+            android:text="Choose your car and gear type?"
+            android:background="@drawable/drawable_upper_white_curve"
+            android:layout_alignParentBottom="true"/>
+
+
         <FrameLayout
             android:id="@+id/flContainerSlide"
             android:layout_width="match_parent"
