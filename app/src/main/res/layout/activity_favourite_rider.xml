@@ -8,9 +8,48 @@
 
 
 
-    <include
-        android:id="@+id/include_action_bar"
-        layout="@layout/custom_action_bar" />
+    <RelativeLayout
+        android:id="@+id/relative_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:onClick="onClick"
+            android:background="@drawable/ic_icon"
+
+            android:padding="@dimen/_8sdp" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Edit Profile"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_16ssp"
+
+            />
+
+
+    </RelativeLayout>
+
 
 
     <RelativeLayout
@@ -19,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_action_bar">
+        app:layout_constraintTop_toBottomOf="@+id/relative_action_bar">
 
 
         <androidx.recyclerview.widget.RecyclerView

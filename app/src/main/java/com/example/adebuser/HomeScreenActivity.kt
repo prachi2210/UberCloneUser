@@ -12,7 +12,7 @@ import com.example.adebuser.ui.me.ProfileFragment
 import com.example.adebuser.ui.my_booking.MyBookingFragment
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.wizebrains.adventmingle.base.BaseActivity
+import com.example.adebuser.base.BaseActivity
 
 
 class HomeScreenActivity : BaseActivity() {

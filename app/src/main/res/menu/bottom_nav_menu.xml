@@ -3,23 +3,24 @@
 
     <item
         android:id="@+id/navigation_book"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_book"
+        
         android:title="@string/book"
         />
 
     <item
         android:id="@+id/navigation_my_booking"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_mybooking"
         android:title="@string/my_booking" />
 
     <item
         android:id="@+id/navigation_payment_method"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_payment_method"
         android:title="@string/payment_method" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_me"
         android:title="@string/me" />
 
 </menu>

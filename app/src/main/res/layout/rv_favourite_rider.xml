@@ -108,7 +108,7 @@
         android:layout_width="@dimen/_5sdp"
         android:layout_height="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_10sdp"
-        android:src="@drawable/dot_drawable"
+        android:src="@drawable/green_dot_drawable"
         app:layout_constraintBottom_toBottomOf="@+id/tv_name"
         app:layout_constraintStart_toEndOf="@+id/tv_name"
         app:layout_constraintTop_toTopOf="@id/tv_name" />

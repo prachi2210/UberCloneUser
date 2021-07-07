@@ -2,13 +2,10 @@ package com.example.adebuser.ui.me
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.adebuser.databinding.ActivityEditProfileBinding
-import com.example.adebuser.databinding.ActivityHomeScreenBinding
-import com.example.adebuser.utils.ActivityStarter
-import com.wizebrains.adventmingle.base.BaseActivity
+import com.example.adebuser.base.BaseActivity
 
 class EditProfileActivity : BaseActivity(), View.OnClickListener {
 
