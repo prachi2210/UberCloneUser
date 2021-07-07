@@ -2,14 +2,12 @@ package com.example.adebuser.ui.me
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.adebuser.databinding.ActivityEditProfileBinding
 import com.example.adebuser.databinding.ActivitySupportScreenBinding
 import com.example.adebuser.extensions.hide
 import com.example.adebuser.extensions.show
-import com.wizebrains.adventmingle.base.BaseActivity
+import com.example.adebuser.base.BaseActivity
 
 class SupportScreenActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivitySupportScreenBinding

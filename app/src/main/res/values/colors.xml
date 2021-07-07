@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_blue">#323a95</color>
     <color name="blue">#075897</color>
+    <color name="light_blue">#005c97</color>
+    <!--#005C97-->
     <color name="text_blue">#6199bf</color>
     <color name="edittext_blue">#e5eef3</color>
     <color name="text_grey">#9a9ea4</color>

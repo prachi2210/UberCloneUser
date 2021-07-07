@@ -40,12 +40,10 @@
         android:id="@+id/ic_camera"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_50sdp"
         android:layout_marginTop="@dimen/_25sdp"
-        android:src="@drawable/ic_camera"
-
+        android:src="@drawable/ic_pic_edit"
         android:translationY="@dimen/_minus50sdp"
-        app:layout_constraintStart_toStartOf="@+id/iv_profile"
+        app:layout_constraintEnd_toEndOf="@+id/iv_profile"
         app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
 

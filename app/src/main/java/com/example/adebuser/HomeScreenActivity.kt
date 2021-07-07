@@ -5,16 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.example.adebuser.activities.LoginActivity
 import com.example.adebuser.databinding.ActivityHomeScreenBinding
 import com.example.adebuser.ui.book.BookFragment
 import com.example.adebuser.ui.me.ProfileFragment
 import com.example.adebuser.ui.my_booking.MyBookingFragment
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.wizebrains.adventmingle.base.BaseActivity
+import com.example.adebuser.base.BaseActivity
 
 
 class HomeScreenActivity : BaseActivity() {

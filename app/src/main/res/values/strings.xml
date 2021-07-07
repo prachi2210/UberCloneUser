@@ -36,5 +36,18 @@
     </string>
 
     <string name="show_notificatons">Notifications</string>
-
+    <string name="you_will_receive_a_otp_on_the_registered_mobile_number">You will receive a OTP on the registered mobile number.</string>
+    <string name="enter_the_registered_mobile_number">Enter the registered mobile number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="you_have_successfully_change_your_password_please_visit_the_login_page_to_use_this_app">You have successfully change your password.Please visit the login page to use this app</string>
+    <string name="password_match_error">Passwords are not matching</string>
+    <string name="password_error">Password cannot be empty</string>
+    <string name="confirm_password_error">Confirm Password cannot be empty</string>
+    <string name="mobile_error">Mobile Number cannot be empty</string>
+    <string name="name_error">Name cannot be empty</string>
+    <string name="email_empty_error">Email cannot be empty</string>
+    <string name="invalid_email_error">Invalid email</string>
+    <string name="logout_confirm_message">Are you sure want to logout of \nyour account?</string>
+    <string name="privacy_policy_validation">Please select our terms of use policy</string>
+    <string name="logout">Logout</string>
 </resources>

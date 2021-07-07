@@ -1,17 +1,15 @@
 package com.example.adebuser.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import com.example.adebuser.HomeScreenActivity
 import com.example.adebuser.R
+import com.example.adebuser.ui.auth.LoginActivity
 import com.example.adebuser.utils.ActivityStarter
-import com.wizebrains.adventmingle.base.BaseActivity
+import com.example.adebuser.base.BaseActivity
 
 class SplashScreenActivity : BaseActivity() {
-
-    private lateinit var handler: Handler
-    private lateinit var runnable: Runnable
     private val TAG: String = SplashScreenActivity::class.java.simpleName
 
     companion object {
@@ -22,21 +20,26 @@ class SplashScreenActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         moveToDestination()
-
-
     }
 
     private fun moveToDestination() {
-        handler = Handler()
-        runnable = Runnable {
-            ActivityStarter.of(LoginActivity.getStartIntent(this))
-                .startFrom(this)
+        Handler(Looper.getMainLooper()).postDelayed({
+            when {
+                userPreferences.getUserId().equals("") -> {
+                    ActivityStarter.of(LoginActivity.getStartIntent(this))
+                        .finishAffinity()
+                        .startFrom(this)
+                }
+                else -> {
+                    ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
+                        .finishAffinity()
+                        .startFrom(this)
+                }
 
 
-        }
+            }
+        }, SPLASH_DISPLAY_LENGTH)
 
-
-        handler.postDelayed(runnable, SPLASH_DISPLAY_LENGTH)
 
     }
 }

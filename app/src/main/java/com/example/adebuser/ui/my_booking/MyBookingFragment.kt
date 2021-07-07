@@ -11,12 +11,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.adebuser.databinding.FragmentMyBookingBinding
 import com.example.adebuser.databinding.FragmentProfileBinding
 import com.example.adebuser.ui.me.ProfileFragment
+import com.example.adebuser.ui.me.favourite_rider.FavoriteRiderAdapter
 import com.wizebrains.adventmingle.base.BaseFragment
 
 class MyBookingFragment : BaseFragment() {
 
     private var _binding: FragmentMyBookingBinding? = null
     private val binding get() = _binding!!
+
+    private val myBookingAdapter: MyBookingAdapter by lazy {
+        MyBookingAdapter(requireActivity())
+    }
 
 
     override fun onCreateView(
@@ -30,6 +35,7 @@ class MyBookingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.rvMyBooking.adapter = myBookingAdapter
 
     }
 

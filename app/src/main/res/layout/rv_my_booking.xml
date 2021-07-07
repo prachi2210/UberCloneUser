@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_12sdp"
+
+    android:paddingTop="@dimen/_10sdp"
+    android:elevation="@dimen/_20ssp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    >
+
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_10sdp"
+
+
+
+    >
 
 
     <TextView
@@ -17,7 +42,6 @@
         android:paddingBottom="@dimen/_10sdp"
         android:text="$ 80"
         android:textColor="@color/black"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +65,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:text="April, 2020"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_digit_date" />
 
@@ -66,40 +90,54 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:text="Driver Name"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/light_blue"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
         app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
     <TextView
-        android:id="@+id/tv_review"
+        android:id="@+id/tv_ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:text="4.3"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_age"
 
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-
 
 
     <TextView
         android:id="@+id/tv_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:text="35"
-        android:textColor="@color/dark_blue"
-        android:textSize="@dimen/_14ssp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:text="35,"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
+
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
 
+    <TextView
+        android:id="@+id/tv_driver_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
+        android:text="Daily driver"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_8ssp"
+
+        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_age" />
 
 
     <ImageView
@@ -108,11 +146,76 @@
         android:layout_height="@dimen/_15sdp"
         android:layout_marginStart="@dimen/_5sdp"
         android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_review"
-        app:layout_constraintStart_toEndOf="@+id/tv_review"
-        app:layout_constraintTop_toTopOf="@+id/tv_review"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_ratings"
+        app:layout_constraintStart_toEndOf="@+id/tv_ratings"
+        app:layout_constraintTop_toTopOf="@+id/tv_ratings"
 
         />
 
 
+    <ImageView
+        android:id="@+id/iv_car"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:src="@drawable/ic_car"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_name"
+
+     />
+
+
+
+
+    <TextView
+        android:id="@+id/tv_car_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Luxory, Automatic"
+        android:textSize="@dimen/_6ssp"
+        android:translationY="@dimen/_minus12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_car"
+        app:layout_constraintTop_toBottomOf="@+id/iv_car" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review"
+        android:textStyle="bold"
+        android:textColor="@color/light_blue"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_car"
+
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_type" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_request_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Request Again"
+        android:textStyle="bold"
+        android:textColor="@color/light_blue"
+        android:textSize="@dimen/_12ssp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_review"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_type" />
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
