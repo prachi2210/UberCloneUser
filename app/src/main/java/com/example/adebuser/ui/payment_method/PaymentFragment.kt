@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.databinding.FragmentMyBookingBinding
 import com.example.adebuser.databinding.FragmentPaymentBinding
-import com.example.adebuser.ui.my_booking.MyBookingFragment
+import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.wizebrains.adventmingle.base.BaseFragment
 
 class PaymentFragment : BaseFragment() {
 
+    private var type: String? = null
 
     private var _binding: FragmentPaymentBinding? = null
 
@@ -31,10 +27,28 @@ class PaymentFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            type = it.getString("type")
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (type == "home") {
+            binding.backPress.visibility = View.VISIBLE
+        } else {
+            binding.backPress.visibility = View.GONE
+
+        }
+
+        binding.backPress.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this@PaymentFragment).commit()
+
+        }
     }
 
 
@@ -46,9 +60,16 @@ class PaymentFragment : BaseFragment() {
 
 
 
-
     companion object {
-        fun newInstance(): PaymentFragment = PaymentFragment()
+
+        @JvmStatic
+        fun newInstance(param: String) =
+            PaymentFragment().apply {
+                arguments = Bundle().apply {
+                    putString("type", param)
+
+                }
+            }
     }
 
 

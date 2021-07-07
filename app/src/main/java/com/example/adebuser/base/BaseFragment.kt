@@ -3,9 +3,12 @@ package com.wizebrains.adventmingle.base
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.example.adebuser.R
 
 
 abstract class BaseFragment : Fragment() {
@@ -44,4 +47,7 @@ abstract class BaseFragment : Fragment() {
     private fun setTitle(title:String){
         activity?.setTitle(title)
     }
+
+
+
 }

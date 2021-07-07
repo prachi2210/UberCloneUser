@@ -5,11 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.example.adebuser.activities.LoginActivity
 import com.example.adebuser.databinding.ActivityHomeScreenBinding
-import com.example.adebuser.ui.book.BookFragment
+import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.example.adebuser.ui.me.ProfileFragment
 import com.example.adebuser.ui.my_booking.MyBookingFragment
 import com.example.adebuser.ui.payment_method.PaymentFragment
@@ -20,9 +18,9 @@ import com.wizebrains.adventmingle.base.BaseActivity
 class HomeScreenActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeScreenBinding
-    private val bookFragment by lazy { BookFragment.newInstance() }
+    private val bookFragment by lazy { BookRideFragment() }
     private val myBookingFragment by lazy { MyBookingFragment.newInstance() }
-    private val paymentFragment by lazy { PaymentFragment.newInstance() }
+    private val paymentFragment by lazy { PaymentFragment.newInstance("navigation") }
     private val profileFragment by lazy { ProfileFragment.newInstance() }
     private val TAG = HomeScreenActivity::class.java.simpleName
 
@@ -102,4 +100,5 @@ class HomeScreenActivity : BaseActivity() {
 
 
     }
+
 }

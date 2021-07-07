@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.BookRideFragment">
+    tools:context=".ui.book_ride.BookRideFragment">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -17,7 +17,7 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/ll"
+            android:id="@+id/favoriteDriver"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
@@ -40,6 +40,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:id="@+id/btn_now"
                 android:background="@drawable/drawable_blue_curve"
                 android:fontFamily="@font/poppins"
                 android:onClick="onClick"
@@ -53,6 +54,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
+                android:id="@+id/btn_day"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins"
@@ -68,6 +70,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:id="@+id/btn_regular"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins"
                 android:onClick="onClick"
@@ -82,6 +85,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:id="@+id/btn_hourly"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins"
                 android:onClick="onClick"
@@ -139,11 +143,12 @@
             android:layout_height="60dp"
             android:padding="15dp"
             android:textSize="16sp"
+            android:id="@+id/tv_open_fragment"
             android:textColor="@color/blue"
             android:fontFamily="@font/poppins_medium"
             android:elevation="5dp"
             android:gravity="center_vertical"
-            android:text="Choose your car and gear type?"
+            android:text="@string/choose_your_car_and_gear_type"
             android:background="@drawable/drawable_upper_white_curve"
             android:layout_alignParentBottom="true"/>
 
