@@ -1,20 +1,23 @@
 package com.example.adebuser
 
 
+import android.R.attr
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.example.adebuser.base.BaseActivity
 import com.example.adebuser.databinding.ActivityHomeScreenBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
+import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
 import com.example.adebuser.ui.me.ProfileFragment
 import com.example.adebuser.ui.my_booking.MyBookingFragment
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.example.adebuser.base.BaseActivity
-import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
+
 import com.example.adebuser.ui.book_ride.select_time.SelectTimeHourlyFragment
+
 
 
 class HomeScreenActivity : BaseActivity() {
@@ -24,12 +27,12 @@ class HomeScreenActivity : BaseActivity() {
     private val myBookingFragment by lazy { MyBookingFragment.newInstance() }
     private val paymentFragment by lazy { PaymentFragment.newInstance("navigation") }
     private val profileFragment by lazy { ProfileFragment.newInstance() }
-    private val selectTimeFragment by lazy { SelectTimeFragment.newInstance() }
+
+   // private val selectTimeFragment by lazy { SelectTimeFragment.newInstance() }
     private val selectTimeHourlyFragment by lazy { SelectTimeHourlyFragment() }
 
-    /*SelectTimeHourlyFragment*/
-    private val TAG = HomeScreenActivity::class.java.simpleName
 
+    private val TAG = HomeScreenActivity::class.java.simpleName
 
 
     companion object {
@@ -76,35 +79,56 @@ class HomeScreenActivity : BaseActivity() {
         }
 
 
-    private fun openFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frame_container, fragment).addToBackStack(null)
+    private fun openFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame_container, fragment)
             commit()
         }
 
 
-    override fun onBackPressed() {
-        val id: Int = binding.bottomNavView.selectedItemId
-        Log.e(TAG,"bottom_navigation_id $id")
-
-        when {
-            bookFragment.isVisible  -> {
-                binding.bottomNavView.selectedItemId = id
-            }
-            myBookingFragment.isVisible  -> {
-                binding.bottomNavView.selectedItemId = id
-            }
-            paymentFragment.isVisible  -> {
-                binding.bottomNavView.selectedItemId = id
-            }
-            profileFragment.isVisible -> {
-                binding.bottomNavView.selectedItemId = id
-            }
-
-            else -> super.onBackPressed()
-        }
 
 
-    }
+//    override fun onBackPressed() {
+//        val id: Int = binding.bottomNavView.selectedItemId
+//
+//        Log.e(TAG, "bottom_navigation_id $id")
+//        when {
+//            bookFragment.isVisible -> {
+//                binding.bottomNavView.selectedItemId = id
+//            }
+//            myBookingFragment.isVisible -> {
+//                binding.bottomNavView.selectedItemId = id
+//            }
+//            paymentFragment.isVisible -> {
+//                binding.bottomNavView.selectedItemId = id
+//            }
+//            profileFragment.isVisible -> {
+//                binding.bottomNavView.selectedItemId = id
+//            }
+//
+//            else -> super.onBackPressed()
+//        }
+
+
+                //  }
+
+
+                override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+                    super.onActivityResult(requestCode, resultCode, data)
+
+                    if (resultCode == RESULT_OK) {
+                        val text: String = data?.getStringExtra("RiderBooked")!!
+
+                        Log.e("PRACHI", text)
+
+                        if (text == "yes") {
+                            openFragment(BookRideFragment.newInstance("booked"))
+
+                        }
+                    }
+
+                }
+
+
+
 
 }

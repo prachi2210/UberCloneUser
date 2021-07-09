@@ -7,9 +7,7 @@ import com.example.adebuser.databinding.RvFavouriteRiderBinding
 
 public class FavoriteRiderAdapter(
     val context: Context,
-
-
-    ) :
+    val bookDriver: BookDriver) :
     androidx.recyclerview.widget.RecyclerView.Adapter<FavoriteRiderAdapter.FavouriteRiderViewHolder>() {
 
 
@@ -36,8 +34,18 @@ public class FavoriteRiderAdapter(
         androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         fun bind() {
 
+            binding.btnBook.setOnClickListener {
+                bookDriver.onBookClick(adapterPosition)
+            }
 
         }
+
+    }
+
+
+    interface BookDriver
+    {
+        fun onBookClick(position: Int)
 
     }
 }

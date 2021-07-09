@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/actionBarSize"
     android:orientation="horizontal"
+    android:elevation="@dimen/_5sdp"
+    android:background="@color/white"
     android:paddingStart="@dimen/_15sdp"
     android:paddingTop="@dimen/_5sdp">
 

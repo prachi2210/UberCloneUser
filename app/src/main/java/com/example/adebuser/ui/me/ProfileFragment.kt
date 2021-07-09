@@ -118,6 +118,10 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 ActivityStarter.of(DriverRatingActivity.getStartIntent(requireActivity()))
                     .startFrom(this)
             }
+            binding.ivArrowRate->{
+                ActivityStarter.of(DriverRatingActivity.getStartIntent(requireActivity()))
+                    .startFrom(this)
+            }
         }
     }
 

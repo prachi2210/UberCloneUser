@@ -36,6 +36,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/half_button_background"
         android:paddingStart="@dimen/_35sdp"
+        android:fontFamily="@font/poppins"
         android:paddingTop="@dimen/_10sdp"
         android:paddingEnd="@dimen/_35sdp"
         android:paddingBottom="@dimen/_10sdp"
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:text="05"
+        android:fontFamily="@font/poppins"
         android:textColor="@color/black"
         android:textSize="@dimen/_20ssp"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:text="April, 2020"
+        android:fontFamily="@font/poppins"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +74,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:src="@drawable/profile"
@@ -87,10 +90,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins"
         android:text="Driver Name"
         android:textColor="@color/light_blue"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
         app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
@@ -99,10 +103,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginTop="5dp"
         android:text="4.3"
+        android:fontFamily="@font/poppins"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_age"
 
@@ -113,10 +118,11 @@
         android:id="@+id/tv_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginTop="7dp"
         android:text="35,"
+        android:fontFamily="@font/poppins"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="12sp"
 
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
 
@@ -130,6 +136,7 @@
         android:layout_height="wrap_content"
         android:text="Daily driver"
         android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
         android:textSize="@dimen/_8ssp"
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
@@ -138,13 +145,13 @@
 
     <ImageView
         android:id="@+id/iv_start"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
+        android:layout_width="@dimen/_13sdp"
+        android:layout_height="@dimen/_13sdp"
         android:layout_marginStart="@dimen/_5sdp"
         android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_ratings"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
         app:layout_constraintStart_toEndOf="@+id/tv_ratings"
-        app:layout_constraintTop_toTopOf="@+id/tv_ratings"
 
         />
 
@@ -154,6 +161,7 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginEnd="@dimen/_15sdp"
+
         android:src="@drawable/ic_car"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_name"
@@ -184,6 +192,7 @@
         android:text="Review"
         android:textStyle="bold"
         android:textColor="@color/light_blue"
+        android:fontFamily="@font/poppins"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@+id/iv_car"
         app:layout_constraintTop_toBottomOf="@+id/tv_car_type" />
@@ -199,6 +208,7 @@
         android:text="Request Again"
         android:textStyle="bold"
         android:textColor="@color/light_blue"
+        android:fontFamily="@font/poppins"
         android:textSize="@dimen/_12ssp"
         android:layout_marginEnd="@dimen/_15sdp"
         app:layout_constraintEnd_toStartOf="@+id/tv_review"

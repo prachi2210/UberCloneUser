@@ -4,14 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.example.adebuser.databinding.ActivityFavouriteRiderBinding
-import com.example.adebuser.base.BaseActivity
 
-class FavouriteRiderActivity : BaseActivity(), View.OnClickListener {
+import com.example.adebuser.base.BaseActivity
+import com.example.adebuser.databinding.ActivityFavouriteRiderBinding
+import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
+
+class FavouriteRiderActivity : BaseActivity(), FavoriteRiderAdapter.BookDriver{
     private lateinit var binding: ActivityFavouriteRiderBinding
     private val TAG: String = FavouriteRiderActivity::class.java.simpleName
     private val favoriteRiderAdapter: FavoriteRiderAdapter by lazy {
-        FavoriteRiderAdapter(this)
+        FavoriteRiderAdapter(this , this)
     }
 
     companion object {
@@ -32,12 +34,12 @@ class FavouriteRiderActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    override fun onClick(v: View?) {
 
-        when (v) {
+    override fun onBookClick(position: Int) {
+         val intent =  Intent()
+        intent.putExtra("RiderBooked", "yes")
+        setResult(RESULT_OK, intent)
+        finish()
 
-
-
-        }
     }
 }

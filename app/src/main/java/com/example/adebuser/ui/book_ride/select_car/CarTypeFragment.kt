@@ -3,19 +3,18 @@ package com.example.adebuser.ui.book_ride.select_car
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.annotation.IdRes
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.fragment.app.FragmentManager
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentCarTypeBinding
+import com.example.adebuser.ui.book_ride.BookRideFragment
+import com.example.adebuser.ui.book_ride.add_coupons.CouponFragment
 import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
+import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
 import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.wizebrains.adventmingle.base.BaseFragment
@@ -26,7 +25,16 @@ class CarTypeFragment : BaseFragment() {
 
     private var _binding: FragmentCarTypeBinding? = null
     private val binding get() = _binding!!
+    private var type: String? = null
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            type = it.getString("type")
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,30 +63,50 @@ class CarTypeFragment : BaseFragment() {
             )
         }
 
+        binding.tvCoupons.setOnClickListener {
+            addSlidingFragment(
+                requireActivity().supportFragmentManager,
+                CouponFragment(), "coupon",
+                R.id.flContainerSlide
+            )
+        }
+
         binding.bookRide.setOnClickListener {
-            openDialog()
+
+            when (type) {
+                "now" -> {
+                    openDialog()
+                }
+                "day" -> {
+                    requireActivity().supportFragmentManager.beginTransaction().remove(this@CarTypeFragment)
+                        .commit()
+                    openFragmentSmall(SelectTimeFragment.newInstance(type!!), "time")
+
+                }
+
+                "regular" -> {
+                    requireActivity().supportFragmentManager.beginTransaction().remove(this@CarTypeFragment)
+                        .commit()
+                    openFragmentSmall(SelectTimeFragment.newInstance(type!!), "time")
+                }
+
+                "hourly" -> {
+
+                }
+            }
+
+
         }
     }
 
-
-    private fun openFragment(fragment: Fragment, tag: String) {
-        addSlidingFragment(
-            requireActivity().supportFragmentManager,
-            fragment,
-            tag,
-            R.id.flContainerSlide
-        )
-    }
-
-    private fun addSlidingFragment(
-        fragmentManager: FragmentManager,
-        fragment: Fragment,
-        tag: String, @IdRes container: Int
-    ) {
-        fragmentManager.beginTransaction().setCustomAnimations(
-            R.anim.slide_up_dialog, 0, 0,
-            R.anim.slide_down_dialog
-        ).add(container, fragment, tag).addToBackStack(null).commit()
+    companion object {
+        @JvmStatic
+        fun newInstance(type: String) =
+            CarTypeFragment().apply {
+                arguments = Bundle().apply {
+                    putString("type", type)
+                }
+            }
     }
 
 
@@ -100,16 +128,18 @@ class CarTypeFragment : BaseFragment() {
 
         favoriteBtn.setOnClickListener {
             val intent: Intent = Intent(requireActivity(), FavouriteRiderActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 1);
+            dialog.dismiss()
+
+
         }
 
         automaticBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this@CarTypeFragment)
                 .commit()
 
-           openFragment(RideDetailsFragment(), "ride")
+            replaceFragmentFull(BookRideFragment.newInstance("booked"), "booked ride")
             dialog.dismiss()
-
 
 
         }
