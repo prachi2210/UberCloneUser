@@ -9,14 +9,15 @@ import retrofit2.http.Part
 
 class ApiHelper(private val apiService: ApiService) {
 
-
     suspend fun getLogin(
         userEmail: RequestBody,
         userPassword: RequestBody,
         fieldType: RequestBody,
         OSType: RequestBody,
-        deviceToken: RequestBody
-    ) = apiService.login(userEmail, userPassword, fieldType, OSType, deviceToken)
+        deviceToken: RequestBody,
+        latitude: RequestBody?,
+   longitude: RequestBody?
+    ) = apiService.login(userEmail, userPassword, fieldType, OSType, deviceToken,latitude,longitude)
 
 
     suspend fun signUp(

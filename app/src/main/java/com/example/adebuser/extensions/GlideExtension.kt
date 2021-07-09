@@ -1,14 +1,11 @@
-/*
 package com.example.adebuser.extensions
 import android.net.Uri
 import android.widget.ImageView
-
-
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.adebuser.R
-
 import java.io.File
+
 
 fun ImageView.loadImage(url: String) {
     Glide.with(context).load(url).placeholder(R.drawable.profile).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(this)
@@ -30,4 +27,3 @@ fun ImageView.loadImage(uri: Uri) {
 fun ImageView.loadImage(resource: Int) {
     Glide.with(context).load(resource).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(this)
 }
-*/

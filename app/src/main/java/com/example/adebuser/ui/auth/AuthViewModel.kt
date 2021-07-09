@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.adebuser.data.api.repository.AppRepository
-import com.example.adebuser.extensions.getMultipart
 import com.example.adebuser.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MediaType.Companion.toMediaType
@@ -27,6 +26,8 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         val fieldType = "phoneNumber".toRequestBody("multipart/form-data".toMediaType())
         val OSType = "Android".toRequestBody("multipart/form-data".toMediaType())
         val deviceToken = token.toRequestBody("multipart/form-data".toMediaType())
+        val latitude="0.0".toRequestBody("multipart/form-data".toMediaType())
+        val longitude="0.0".toRequestBody("multipart/form-data".toMediaType())
 
         emit(Resource.loading(data = null))
         try {
@@ -38,7 +39,9 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
                         userPassword,
                         fieldType,
                         OSType,
-                        deviceToken
+                        deviceToken,
+                        latitude,
+                        longitude
                     )
                 )
             )

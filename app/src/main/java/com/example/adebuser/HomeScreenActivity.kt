@@ -13,6 +13,7 @@ import com.example.adebuser.ui.my_booking.MyBookingFragment
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.adebuser.base.BaseActivity
+import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
 
 
 class HomeScreenActivity : BaseActivity() {
@@ -22,6 +23,7 @@ class HomeScreenActivity : BaseActivity() {
     private val myBookingFragment by lazy { MyBookingFragment.newInstance() }
     private val paymentFragment by lazy { PaymentFragment.newInstance("navigation") }
     private val profileFragment by lazy { ProfileFragment.newInstance() }
+    private val selectTimeFragment by lazy { SelectTimeFragment.newInstance() }
     private val TAG = HomeScreenActivity::class.java.simpleName
 
 

@@ -12,10 +12,8 @@
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:padding="@dimen/_10sdp"
-
         android:layout_marginStart="@dimen/_5sdp"
         android:src="@drawable/ic_logout"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_right_play" />
 
@@ -28,7 +26,6 @@
         android:padding="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:src="@drawable/ic_logout"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_red_dot"/>
 
@@ -73,6 +70,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:gravity="center"
         android:text="User Name"
+        android:fontFamily="@font/poppins_medium"
         android:textColor="@color/app_hint_color"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +88,7 @@
         android:gravity="center"
         android:paddingBottom="@dimen/_10sdp"
         android:text="Phone number"
+        android:fontFamily="@font/poppins"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +114,11 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:gravity="center|start"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
+
         android:textSize="@dimen/_14ssp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/iv_edit_arrow"
         app:layout_constraintStart_toEndOf="@+id/iv_edit"
         app:layout_constraintTop_toBottomOf="@+id/tv_phone_number" />
@@ -126,6 +128,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
         android:text="@string/edit_your_profile_details"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="@+id/tv_edit_profile"
@@ -163,8 +167,9 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:gravity="center"
-        android:text="Favourite Drivers"
-
+        android:text="@string/favourite_drivers"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintStart_toEndOf="@+id/iv_edit"
         app:layout_constraintTop_toBottomOf="@+id/tv_edit_profile_desc" />
@@ -174,7 +179,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Your Favourite Drivers"
+        android:text="@string/your_favourite_drivers"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="@+id/tv_fav_driver"
         app:layout_constraintTop_toBottomOf="@+id/tv_fav_driver" />
@@ -210,7 +217,9 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:gravity="center|start"
-        android:text="Settings"
+        android:text="@string/settings"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/iv_arrow_settings"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintStart_toEndOf="@+id/iv_settings"
@@ -221,8 +230,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Change your account settings"
+        android:text="@string/change_your_account_settings"
         android:textSize="@dimen/_12ssp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_settings"
         app:layout_constraintTop_toBottomOf="@+id/tv_settings" />
 
@@ -258,7 +269,9 @@
 
         android:layout_marginTop="@dimen/_15sdp"
         android:gravity="center|start"
-        android:text="Support"
+        android:text="@string/support"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toStartOf="@+id/iv_arrow_support"
         app:layout_constraintStart_toEndOf="@+id/iv_support"
@@ -269,8 +282,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ready to help you 24*7"
+        android:text="@string/ready_to_help_you_24_7"
         android:textSize="@dimen/_12ssp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_support"
         app:layout_constraintTop_toBottomOf="@+id/tv_support" />
 
@@ -305,8 +320,10 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:gravity="center"
-        android:text="Rate this App"
+        android:text="@string/rate_this_app"
         android:textSize="@dimen/_14ssp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/iv_rate"
         app:layout_constraintTop_toBottomOf="@+id/tv_support_desc" />
 
@@ -315,7 +332,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Rate our app"
+        android:text="@string/rate_our_app"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="@+id/tv_rate"
         app:layout_constraintTop_toBottomOf="@+id/tv_rate" />

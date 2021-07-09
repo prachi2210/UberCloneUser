@@ -12,8 +12,10 @@ class AppRepository(var apiHelper: ApiHelper) {
         userPassword: RequestBody,
         fieldType: RequestBody,
         OSType: RequestBody,
-        deviceToken: RequestBody
-    ) = apiHelper.getLogin(userEmail, userPassword, fieldType, OSType, deviceToken)
+        deviceToken: RequestBody,
+        latitude: RequestBody?,
+        longitude: RequestBody?
+    ) = apiHelper.getLogin(userEmail, userPassword, fieldType, OSType, deviceToken,latitude,longitude)
 
 
     suspend fun signUp(

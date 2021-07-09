@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.adebuser.R
+import com.wizebrains.adventmingle.base.BaseFragment
 
 
-
-
-class RideDetailsFragment : Fragment() {
+class RideDetailsFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
 
