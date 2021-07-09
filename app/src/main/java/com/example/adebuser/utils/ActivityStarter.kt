@@ -20,6 +20,7 @@ class ActivityStarter private constructor(private val startIntent: Intent) {
     companion object {
 
         fun of(startIntent: Intent): ActivityStarter {
+            startIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             return ActivityStarter(startIntent)
         }
     }
@@ -52,6 +53,7 @@ class ActivityStarter private constructor(private val startIntent: Intent) {
     fun startFrom(activity: Activity) {
 
         if (requestCode > 0) {
+
             activity.startActivityForResult(startIntent, requestCode)
         } else {
             activity.startActivity(startIntent)

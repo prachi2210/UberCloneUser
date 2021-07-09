@@ -9,9 +9,7 @@ import com.example.adebuser.databinding.RvMyBookingBinding
 
 public class MyBookingAdapter(
     val context: Context,
-
-
-    ) :
+) :
     androidx.recyclerview.widget.RecyclerView.Adapter<MyBookingAdapter.MyBookingViewHolder>() {
 
 

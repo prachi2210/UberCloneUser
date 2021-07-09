@@ -32,7 +32,9 @@ interface ApiService {
         @Part("password") password: RequestBody?,
         @Part("FieldType") fieldType: RequestBody?,
         @Part("deviceType") deviceType: RequestBody?,
-        @Part("deviceToken") deviceToken: RequestBody?
+        @Part("deviceToken") deviceToken: RequestBody?,
+        @Part("latitude") latitude: RequestBody?,
+        @Part("longitude") longitude: RequestBody?
     ): Response<LoginResponse>
 
 

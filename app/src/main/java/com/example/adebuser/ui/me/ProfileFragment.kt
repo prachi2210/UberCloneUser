@@ -18,6 +18,7 @@ import com.example.adebuser.databinding.FragmentProfileBinding
 import com.example.adebuser.ui.auth.AuthViewModel
 import com.example.adebuser.ui.auth.LoginActivity
 import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
+import com.example.adebuser.ui.rate.DriverRatingActivity
 import com.example.adebuser.utils.ActivityStarter
 import com.example.adebuser.utils.Status
 import com.wizebrains.adventmingle.base.BaseFragment
@@ -62,6 +63,8 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         binding.ivArrowFav.setOnClickListener(this)
         binding.ivArrowSettings.setOnClickListener(this)
         binding.ivRightPlay.setOnClickListener(this)
+        binding.tvRate.setOnClickListener(this)
+     /*   binding.tvRate.setOnClickListener(this)*/
     }
 
     companion object {
@@ -111,7 +114,10 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 binding.tvSettings.performClick()
             }
 
-
+            binding.tvRate -> {
+                ActivityStarter.of(DriverRatingActivity.getStartIntent(requireActivity()))
+                    .startFrom(this)
+            }
         }
     }
 

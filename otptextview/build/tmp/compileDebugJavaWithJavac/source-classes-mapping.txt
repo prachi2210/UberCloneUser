@@ -1,0 +1,2 @@
+in/aabhasjindal/otptextview/BuildConfig.java
+ in.aabhasjindal.otptextview.BuildConfig

@@ -11,11 +11,7 @@ import com.wizebrains.adventmingle.base.BaseFragment
 class PaymentFragment : BaseFragment() {
 
     private var type: String? = null
-
     private var _binding: FragmentPaymentBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
 

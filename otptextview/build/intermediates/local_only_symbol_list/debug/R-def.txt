@@ -1,0 +1,39 @@
+R_DEF: Internal format may change without notice
+local
+attr? bar_active_color
+attr? bar_enabled
+attr? bar_error_color
+attr? bar_height
+attr? bar_inactive_color
+attr? bar_margin
+attr? bar_margin_bottom
+attr? bar_margin_left
+attr? bar_margin_right
+attr? bar_margin_top
+attr? bar_success_color
+attr? box_margin
+attr? box_margin_bottom
+attr? box_margin_left
+attr? box_margin_right
+attr? box_margin_top
+attr? height
+attr? hide_otp
+attr? hide_otp_drawable
+attr? length
+attr? otp
+attr? otp_box_background
+attr? otp_box_background_active
+attr? otp_box_background_error
+attr? otp_box_background_inactive
+attr? otp_box_background_success
+attr? otp_text_size
+attr? text_typeface
+attr? width
+color black
+color grey
+color red
+color transparent
+color white
+drawable bg_pin
+string app_name
+styleable OtpTextView android:textColor otp hide_otp hide_otp_drawable length width height box_margin box_margin_left box_margin_right box_margin_top box_margin_bottom bar_height bar_enabled otp_box_background otp_box_background_active otp_box_background_inactive otp_box_background_success otp_box_background_error bar_margin bar_margin_bottom bar_margin_right bar_margin_left bar_margin_top otp_text_size bar_active_color bar_inactive_color bar_error_color bar_success_color text_typeface

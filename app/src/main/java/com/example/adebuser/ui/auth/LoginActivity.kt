@@ -1,9 +1,17 @@
 package com.example.adebuser.ui.auth
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.adebuser.HomeScreenActivity
@@ -45,6 +53,65 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             ViewModelProviderFactory(ApiHelper(RetrofitBuilder.apiService))
         ).get(AuthViewModel::class.java)
     }
+
+/*    private fun locationPermission() {
+
+
+        Log.e(TAG, "Lattiude locationPermission" + userPreferences.getLatitude())
+        Log.e(TAG, "longitude locationPermission" + userPreferences.getLongitude())
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        object : LocationListener {
+
+            override fun onLocationChanged(location: Location) {
+                userPreferences.saveCurrentLatitude(location.latitude.toString())
+                userPreferences.saveCurrentLongitude(location.longitude.toString())
+
+                Log.e(TAG, "getLatitude " + userPreferences.getLatitude())
+                Log.e(TAG, "getLongitude " + userPreferences.getLongitude())
+
+                Log.e(TAG, "IN ON LOCATION CHANGE, lat=" + location.latitude + ", lon=" + location.longitude);
+                Log.e(TAG, "Lattiude Inside onLocation Changed" + userPreferences.getLatitude())
+                Log.e(TAG, "longitude Inside onLocation Changed" + userPreferences.getLongitude())
+
+            }
+
+            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
+            }
+
+            override fun onProviderEnabled(provider: String) {
+            }
+
+            override fun onProviderDisabled(provider: String) {
+            }
+        }.also { locationListener = it }
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) !== PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+
+
+            Log.e(TAG, "Lattiude " + userPreferences.getLatitude())
+            Log.e(TAG, "longitude " + userPreferences.getLongitude())
+        } else {
+
+            locationManager.run {
+                requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 1000L, 1f,
+                    locationListener)
+                requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0F, locationListener);
+            }
+
+            Log.e(TAG, "Lattiude " + userPreferences.getLatitude())
+            Log.e(TAG, "longitude " + userPreferences.getLongitude())
+        }
+
+    }*/
 
 
     override fun onClick(v: View?) {

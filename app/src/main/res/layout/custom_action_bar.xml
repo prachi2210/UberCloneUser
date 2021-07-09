@@ -28,6 +28,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:text="Edit Profile"
         android:textStyle="bold"
+        android:fontFamily="@font/poppins"
         android:layout_centerInParent="true"
         android:textColor="@color/blue"
         android:textSize="@dimen/_16ssp"

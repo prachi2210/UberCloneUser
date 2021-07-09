@@ -9,7 +9,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_12sdp"
-
     android:paddingTop="@dimen/_10sdp"
     android:elevation="@dimen/_20ssp"
     android:layout_marginStart="@dimen/_8sdp"
@@ -129,13 +128,10 @@
         android:id="@+id/tv_driver_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:text="Daily driver"
         android:textColor="@color/black"
         android:textSize="@dimen/_8ssp"
-
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
-
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_age" />
 
@@ -159,7 +155,6 @@
         android:layout_height="@dimen/_50sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:src="@drawable/ic_car"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_name"
 
@@ -191,7 +186,6 @@
         android:textColor="@color/light_blue"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@+id/iv_car"
-
         app:layout_constraintTop_toBottomOf="@+id/tv_car_type" />
 
 
@@ -208,8 +202,6 @@
         android:textSize="@dimen/_12ssp"
         android:layout_marginEnd="@dimen/_15sdp"
         app:layout_constraintEnd_toStartOf="@+id/tv_review"
-
-
         app:layout_constraintTop_toBottomOf="@+id/tv_car_type" />
 
 

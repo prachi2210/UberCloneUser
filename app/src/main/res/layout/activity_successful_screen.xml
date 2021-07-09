@@ -70,7 +70,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_40sdp"
         android:background="@drawable/curve_button"
-        android:text="Login"
+        android:text="@string/login"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:onClick="onClick"
