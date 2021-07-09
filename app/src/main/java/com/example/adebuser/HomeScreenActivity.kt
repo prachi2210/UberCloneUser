@@ -14,6 +14,7 @@ import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.adebuser.base.BaseActivity
 import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
+import com.example.adebuser.ui.book_ride.select_time.SelectTimeHourlyFragment
 
 
 class HomeScreenActivity : BaseActivity() {
@@ -24,6 +25,9 @@ class HomeScreenActivity : BaseActivity() {
     private val paymentFragment by lazy { PaymentFragment.newInstance("navigation") }
     private val profileFragment by lazy { ProfileFragment.newInstance() }
     private val selectTimeFragment by lazy { SelectTimeFragment.newInstance() }
+    private val selectTimeHourlyFragment by lazy { SelectTimeHourlyFragment() }
+
+    /*SelectTimeHourlyFragment*/
     private val TAG = HomeScreenActivity::class.java.simpleName
 
 
@@ -63,7 +67,7 @@ class HomeScreenActivity : BaseActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
-                    openFragment(profileFragment)
+                    openFragment(selectTimeHourlyFragment)
                     return@OnNavigationItemSelectedListener true
                 }
 
@@ -81,8 +85,8 @@ class HomeScreenActivity : BaseActivity() {
 
     override fun onBackPressed() {
         val id: Int = binding.bottomNavView.selectedItemId
-
         Log.e(TAG,"bottom_navigation_id $id")
+
         when {
             bookFragment.isVisible  -> {
                 binding.bottomNavView.selectedItemId = id

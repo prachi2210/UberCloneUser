@@ -44,7 +44,6 @@
         android:id="@+id/rv_pickup_rider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_2sdp"
         android:layout_marginEnd="@dimen/_10sdp"
