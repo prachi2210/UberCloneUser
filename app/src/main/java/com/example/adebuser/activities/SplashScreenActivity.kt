@@ -13,7 +13,7 @@ class SplashScreenActivity : BaseActivity() {
     private val TAG: String = SplashScreenActivity::class.java.simpleName
 
     companion object {
-        var SPLASH_DISPLAY_LENGTH: Long = 1000
+        var SPLASH_DISPLAY_LENGTH: Long = 1600
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +30,7 @@ class SplashScreenActivity : BaseActivity() {
                         .finishAffinity()
                         .startFrom(this)
                 }
+
                 else -> {
                     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
                         .finishAffinity()

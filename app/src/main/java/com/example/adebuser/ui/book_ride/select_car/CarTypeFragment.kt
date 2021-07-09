@@ -15,6 +15,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.FragmentManager
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentCarTypeBinding
+import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
 import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.wizebrains.adventmingle.base.BaseFragment
@@ -106,7 +107,9 @@ class CarTypeFragment : BaseFragment() {
             requireActivity().supportFragmentManager.beginTransaction().remove(this@CarTypeFragment)
                 .commit()
 
-//            openFragment(PaymentFragment.newInstance("home"), "payment")
+           openFragment(RideDetailsFragment(), "ride")
+            dialog.dismiss()
+
 
 
         }

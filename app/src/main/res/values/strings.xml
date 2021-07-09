@@ -68,5 +68,8 @@
     <string name="logout_confirm_message">Are you sure want to logout of \nyour account?</string>
     <string name="privacy_policy_validation">Please select our terms of use policy</string>
     <string name="logout">Logout</string>
->>>>>>> 3654158d5e98cb20d7fa85cc67d88d4ccc803bb4
+    <string name="call_driver">Call Driver</string>
+    <string name="cancel_ride">Cancel Ride</string>
+    <string name="dismiss">Dismiss</string>
+    >>>>>>> 3654158d5e98cb20d7fa85cc67d88d4ccc803bb4
 </resources>
