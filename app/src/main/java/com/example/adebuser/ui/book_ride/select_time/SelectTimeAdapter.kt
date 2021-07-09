@@ -12,7 +12,8 @@ import com.example.adebuser.extensions.show
 public class SelectTimeAdapter(
     val context: Context,
     var selectTimeListener: SelectTimeListener,
-    var selectTimeList: ArrayList<SelectTimeList>
+    var selectTimeList: ArrayList<SelectTimeList>,
+    val type: String?
 ) :
     androidx.recyclerview.widget.RecyclerView.Adapter<SelectTimeAdapter.SelectTimeViewHolder>() {
 
@@ -28,11 +29,17 @@ public class SelectTimeAdapter(
     }
 
     override fun getItemCount(): Int {
-        return selectTimeList.size
+        return if (type == "day") {
+            1
+        } else {
+            selectTimeList.size
+        }
     }
 
     override fun onBindViewHolder(holder: SelectTimeViewHolder, position: Int) {
         holder.bind(selectTimeList[position], position)
+
+
         holder.frameImg.setOnClickListener {
 
             if (holder.ivAdd.visibility == View.VISIBLE) {
@@ -52,15 +59,19 @@ public class SelectTimeAdapter(
         val ivMinus = binding.ivMinus
 
         fun bind(selectTimeList: SelectTimeList, position: Int) {
-            if (position == 0) {
-                binding.ivAdd.show()
-                binding.ivMinus.hide()
-            } else {
-                binding.ivMinus.show()
-                binding.ivAdd.hide()
-            }
 
-        }
+            if (type == "day") {
+                binding.ivAdd.hide()
+            } else {
+                if (position == 0) {
+                    binding.ivAdd.show()
+                    binding.ivMinus.hide()
+                } else {
+                    binding.ivMinus.show()
+                    binding.ivAdd.hide()
+                }
+            }
+ 1       }
 
     }
 

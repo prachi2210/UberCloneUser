@@ -1,4 +1,4 @@
- package com.example.adebuser.ui.book_ride
+package com.example.adebuser.ui.book_ride
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,15 +10,16 @@ import androidx.annotation.IdRes
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import com.example.adebuser.HomeScreenActivity
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentBookRideBinding
+import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
 import com.example.adebuser.ui.book_ride.select_car.CarTypeFragment
 import com.wizebrains.adventmingle.base.BaseFragment
 
 
 class BookRideFragment : BaseFragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+    private var param: String? = null
     private var type: String? = null
 
     private var _binding: FragmentBookRideBinding? = null
@@ -28,8 +29,7 @@ class BookRideFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString("")
-            param2 = it.getString("")
+            param = it.getString("status")
         }
     }
 
@@ -46,68 +46,137 @@ class BookRideFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvOpenFragment.setOnClickListener {
-            openFragment(CarTypeFragment(), "car")
+        type = (activity as HomeScreenActivity).userPreferences.getTimeType()
+
+        if (type.isNullOrEmpty())
+        {
+            type = "now"
+            (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
         }
 
 
+
+        if (param == "booked") {
+            binding.tvOpenFragment.text = "Driver is 15 min away from you"
+
+        } else {
+            binding.tvOpenFragment.text = getString(R.string.choose_your_car_and_gear_type)
+
+        }
+
+
+        binding.tvOpenFragment.setOnClickListener {
+            if (param == "booked") {
+                openFragmentSmall(RideDetailsFragment(), "ride")
+            } else {
+                openFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+            }
+        }
+
         setButtonsState()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        setBackgroundAccordingToType()
+
     }
 
     private fun setButtonsState() {
         binding.btnNow.setOnClickListener {
             type = "now"
-            buttonActiveState(binding.btnNow)
-            buttonInActiveState(binding.btnDay)
-            buttonInActiveState(binding.btnHourly)
-            buttonInActiveState(binding.btnRegular)
+            (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
+            setBackgroundAccordingToType()
+            if (param == "booked") {
+                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            } else {
+                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+            }
         }
 
 
         binding.btnDay.setOnClickListener {
             type = "day"
-            buttonActiveState(binding.btnDay)
-            buttonInActiveState(binding.btnNow)
-            buttonInActiveState(binding.btnHourly)
-            buttonInActiveState(binding.btnRegular)
+            (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
+            setBackgroundAccordingToType()
+            if (param == "booked") {
+                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            } else {
+                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+            }
+
         }
 
         binding.btnHourly.setOnClickListener {
             type = "hourly"
-            buttonActiveState(binding.btnHourly)
-            buttonInActiveState(binding.btnDay)
-            buttonInActiveState(binding.btnNow)
-            buttonInActiveState(binding.btnRegular)
+            (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
+            setBackgroundAccordingToType()
+            if (param == "booked") {
+                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            } else {
+                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+            }
+
         }
 
         binding.btnRegular.setOnClickListener {
             type = "regular"
-            buttonActiveState(binding.btnRegular)
-            buttonInActiveState(binding.btnDay)
-            buttonInActiveState(binding.btnNow)
-            buttonInActiveState(binding.btnHourly)
+            (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
+            setBackgroundAccordingToType()
+            if (param == "booked") {
+                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            } else {
+                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+            }
+
         }
     }
 
 
-    private fun openFragment(fragment: Fragment, tag: String) {
-        replaceSlidingFragment(
-            requireActivity().supportFragmentManager,
-            fragment,
-            tag,
-            R.id.flContainerSlide
-        )
+    private fun setBackgroundAccordingToType() {
+        when ((activity as HomeScreenActivity).userPreferences.getTimeType()) {
+            "now" -> {
+                buttonActiveState(binding.btnNow)
+                buttonInActiveState(binding.btnDay)
+                buttonInActiveState(binding.btnHourly)
+                buttonInActiveState(binding.btnRegular)
+            }
+
+            "day" -> {
+                buttonActiveState(binding.btnDay)
+                buttonInActiveState(binding.btnNow)
+                buttonInActiveState(binding.btnHourly)
+                buttonInActiveState(binding.btnRegular)
+            }
+
+            "hourly" -> {
+                (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
+                buttonActiveState(binding.btnHourly)
+                buttonInActiveState(binding.btnDay)
+                buttonInActiveState(binding.btnNow)
+                buttonInActiveState(binding.btnRegular)
+            }
+
+            "regular" -> {
+                buttonActiveState(binding.btnRegular)
+                buttonInActiveState(binding.btnDay)
+                buttonInActiveState(binding.btnNow)
+                buttonInActiveState(binding.btnHourly)
+            }
+
+        }
     }
 
 
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param: String) =
             BookRideFragment().apply {
                 arguments = Bundle().apply {
-                    putString("", param1)
-                    putString("", param2)
+                    putString("status", param)
+
                 }
             }
     }

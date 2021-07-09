@@ -1,17 +1,21 @@
 package com.example.adebuser.ui.book_ride.ride_details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.adebuser.R
+import androidx.fragment.app.FragmentManager
+import com.example.adebuser.databinding.FragmentRideDetailsBinding
+import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.wizebrains.adventmingle.base.BaseFragment
 
 
 class RideDetailsFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
+
+    private var _binding: FragmentRideDetailsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +28,28 @@ class RideDetailsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ride_details, container, false)
+        _binding = FragmentRideDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.closeFragment.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this@RideDetailsFragment)
+                .commit()
+        }
+
+        binding.cancelRide.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+            replaceFragmentFull(BookRideFragment.newInstance("choose vehicle"), "book")
+        }
+    }
 
 
     companion object {

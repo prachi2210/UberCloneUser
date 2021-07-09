@@ -7,11 +7,13 @@ import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -126,6 +128,7 @@ fun setDefaultLatLng() {
         activity = this
         supportActionBar?.hide()
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             window.statusBarColor = ContextCompat.getColor(this, R.color.white)
@@ -151,6 +154,25 @@ private fun generateFcmToken() {
     })
 }
 */
+open fun openFragment(fragment: Fragment, tag: String) {
+    addSlidingFragment(
+     supportFragmentManager,
+        fragment,
+        tag,
+        R.id.flContainerSlide
+    )
+}
+
+    open fun addSlidingFragment(
+        fragmentManager: FragmentManager,
+        fragment: Fragment,
+        tag: String, @IdRes container: Int
+    ) {
+        fragmentManager.beginTransaction().setCustomAnimations(
+            R.anim.slide_up_dialog, 0, 0,
+            R.anim.slide_down_dialog
+        ).add(container, fragment, tag).addToBackStack(null).commit()
+    }
 
 
 /*private fun createNotificationChannel() {
@@ -197,7 +219,25 @@ private fun generateFcmToken() {
         }
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val view = currentFocus
+        val ret = super.dispatchTouchEvent(ev)
 
+        if (view is EditText) {
+            val w = currentFocus
+            val scrcoords = IntArray(2)
+            w!!.getLocationOnScreen(scrcoords)
+            val x = ev!!.rawX + w.left - scrcoords[0]
+            val y = ev.rawY + w.top - scrcoords[1]
+            if (ev.action == MotionEvent.ACTION_UP
+                && (x < w.left || x >= w.right || y < w.top || y > w.bottom)
+            ) {
+                disappearKeyboard()
+                view.clearFocus()
+            }
+        }
+        return ret
+    }
     fun disappearKeyboard() {
         val imm =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -210,7 +250,9 @@ private fun generateFcmToken() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
-
+    open fun backBtnPressed(view: View?) {
+        finish()
+    }
 
     fun addFragment(
         containerId: Int,

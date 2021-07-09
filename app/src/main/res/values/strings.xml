@@ -96,6 +96,7 @@
     <string name="ride_passes_and_subscriptions">Ride passes and subscriptions</string>
     <string name="all_about_adeb_services">All about ADEB services</string>
     <string name="choose_the_driver">Choose the driver</string>
+    <string name="title">Title</string>
 
 
 </resources>
