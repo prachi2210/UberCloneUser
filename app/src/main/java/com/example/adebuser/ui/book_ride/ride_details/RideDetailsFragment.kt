@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import com.example.adebuser.databinding.FragmentRideDetailsBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
-import com.wizebrains.adventmingle.base.BaseFragment
+import com.example.adebuser.base.BaseFragment
 
 
 class RideDetailsFragment : BaseFragment() {

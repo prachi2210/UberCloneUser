@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.adebuser.databinding.FragmentPaymentBinding
-import com.example.adebuser.ui.book_ride.BookRideFragment
-import com.wizebrains.adventmingle.base.BaseFragment
+import com.example.adebuser.base.BaseFragment
 
 class PaymentFragment : BaseFragment() {
 

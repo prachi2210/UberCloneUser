@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentSelectTimeHourlyBinding
 import com.example.adebuser.extensions.showToast
-import com.wizebrains.adventmingle.base.BaseFragment
+import com.example.adebuser.base.BaseFragment
 
 
 class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectTimeHourlyListener {

@@ -26,7 +26,7 @@ class SplashScreenActivity : BaseActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             when {
                 userPreferences.getUserId().equals("") -> {
-                    ActivityStarter.of(LoginActivity.getStartIntent(this))
+                    ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
                         .finishAffinity()
                         .startFrom(this)
                 }

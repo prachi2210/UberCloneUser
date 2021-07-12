@@ -13,7 +13,7 @@ import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentSelectTimeBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
-import com.wizebrains.adventmingle.base.BaseFragment
+import com.example.adebuser.base.BaseFragment
 
 
 class SelectTimeFragment : BaseFragment(), SelectTimeAdapter.SelectTimeListener {

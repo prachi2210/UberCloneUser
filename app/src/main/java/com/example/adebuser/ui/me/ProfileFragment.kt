@@ -2,13 +2,11 @@ package com.example.adebuser.ui.me
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.adebuser.HomeScreenActivity
 import com.example.adebuser.R
 import com.example.adebuser.base.ViewModelProviderFactory
@@ -21,7 +19,7 @@ import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
 import com.example.adebuser.ui.rate.DriverRatingActivity
 import com.example.adebuser.utils.ActivityStarter
 import com.example.adebuser.utils.Status
-import com.wizebrains.adventmingle.base.BaseFragment
+import com.example.adebuser.base.BaseFragment
 
 
 class ProfileFragment : BaseFragment(), View.OnClickListener {

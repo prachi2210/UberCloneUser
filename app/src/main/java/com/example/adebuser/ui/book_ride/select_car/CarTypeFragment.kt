@@ -13,11 +13,10 @@ import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentCarTypeBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.example.adebuser.ui.book_ride.add_coupons.CouponFragment
-import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
 import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
 import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
 import com.example.adebuser.ui.payment_method.PaymentFragment
-import com.wizebrains.adventmingle.base.BaseFragment
+import com.example.adebuser.base.BaseFragment
 
 
 class CarTypeFragment : BaseFragment() {

@@ -1,30 +1,54 @@
 package com.example.adebuser.ui.book_ride
 
+
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
+import com.directions.route.*
 import com.example.adebuser.HomeScreenActivity
 import com.example.adebuser.R
+import com.example.adebuser.base.BaseFragment
 import com.example.adebuser.databinding.FragmentBookRideBinding
 import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
 import com.example.adebuser.ui.book_ride.select_car.CarTypeFragment
-import com.wizebrains.adventmingle.base.BaseFragment
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener
+import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener
+import com.google.android.gms.maps.model.*
+import java.util.*
 
 
-class BookRideFragment : BaseFragment() {
+class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener,
+    android.location.LocationListener {
     private var param: String? = null
     private var type: String? = null
 
+    private lateinit var mLocation: Location
+    private lateinit var locationCallback: LocationCallback
+    private var mMapView: MapView? = null
+    private var googleMap: GoogleMap? = null
+    private val LOCATION_REQUEST_CODE = 23
+    var locationPermission = false
+    private var startPoint: LatLng? =  LatLng(
+        30.7411,
+        76.7790
+    )
+    private var endPoint: LatLng? = null
+    private var polylines: ArrayList<Polyline>? = null
+
+
     private var _binding: FragmentBookRideBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +63,30 @@ class BookRideFragment : BaseFragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentBookRideBinding.inflate(inflater, container, false)
-        return binding.root
+
+        mMapView = binding.mapView
+        mMapView!!.onCreate(savedInstanceState)
+        mMapView!!.onResume()
+        try {
+            MapsInitializer.initialize(requireContext().applicationContext)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        mMapView!!.getMapAsync(this)
+            return binding.root
+
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requestPermission()
+
         type = (activity as HomeScreenActivity).userPreferences.getTimeType()
 
-        if (type.isNullOrEmpty())
-        {
+        if (type.isNullOrEmpty()) {
             type = "now"
             (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
         }
@@ -181,16 +218,6 @@ class BookRideFragment : BaseFragment() {
             }
     }
 
-    private fun replaceSlidingFragment(
-        fragmentManager: FragmentManager,
-        fragment: Fragment,
-        tag: String, @IdRes container: Int
-    ) {
-        fragmentManager.beginTransaction().setCustomAnimations(
-            R.anim.slide_up_dialog, 0, 0,
-            R.anim.slide_down_dialog
-        ).replace(container, fragment, tag).commit()
-    }
 
 
     private fun buttonActiveState(appCompatButton: AppCompatButton) {
@@ -209,6 +236,162 @@ class BookRideFragment : BaseFragment() {
 
         )
 
+    }
+
+    private fun requestPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity() , arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_REQUEST_CODE
+            )
+        } else {
+            locationPermission = true
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+          LOCATION_REQUEST_CODE -> {
+                if (grantResults.size > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    //if permission granted.
+                    locationPermission = true
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return
+            }
+        }    }
+
+    private fun getMyLocation() {
+
+
+        googleMap!!.setMyLocationEnabled(true)
+
+        googleMap!!.setOnMyLocationChangeListener { location ->
+            mLocation = location
+            val ltlng = LatLng(location.latitude, location.longitude)
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+                ltlng, 16f
+            )
+            googleMap!!.animateCamera(cameraUpdate)
+        }
+
+
+        //get destination location when user click on map
+        googleMap?.setOnMapClickListener(OnMapClickListener { latLng ->
+            endPoint = latLng
+            googleMap?.clear()
+            startPoint = LatLng(
+                mLocation.latitude,
+                mLocation.longitude
+            )
+            //start route finding
+            findroutes(startPoint, endPoint)
+        })
+    }
+
+    private fun findroutes(startPoint: LatLng?, endPoint: LatLng?) {
+        if (startPoint == null || endPoint == null) {
+
+            Toast.makeText(requireContext(), "Unable to get location", Toast.LENGTH_LONG).show()
+        } else {
+            val routing = Routing.Builder()
+                .travelMode(AbstractRouting.TravelMode.DRIVING)
+                .withListener(this)
+                .alternativeRoutes(true)
+                .waypoints(startPoint, endPoint)
+                .key("AIzaSyCh8iJgNF3h-edODUQBvPBPq2TaNYyIWsQ") //also define your api key here.
+                .build()
+            routing.execute()
+        }
+    }
+
+    override fun onMapReady(p0: GoogleMap) {
+        googleMap = p0
+        if (locationPermission) {
+            getMyLocation()
+        }
+
+    }
+
+
+
+
+
+    override fun onRoutingFailure(p0: RouteException?) {
+
+    }
+
+    override fun onRoutingStart() {
+    }
+
+    override fun onRoutingSuccess(route: ArrayList<Route>?, shortestRouteIndex: Int) {
+        val center = CameraUpdateFactory.newLatLng(startPoint)
+        val zoom = CameraUpdateFactory.zoomTo(16f)
+        if (polylines != null) {
+            polylines?.clear()
+        }
+        val polyOptions = PolylineOptions()
+        var polylineStartLatLng: LatLng? = null
+        var polylineEndLatLng: LatLng? = null
+
+
+        polylines = ArrayList<Polyline>()
+        //add route(s) to the map using polyline
+        //add route(s) to the map using polyline
+        for (i in route!!.indices) {
+            if (i == shortestRouteIndex) {
+                polyOptions.color(ContextCompat.getColor(requireContext(), R.color.blue))
+                polyOptions.width(14f)
+                polyOptions.addAll(route[shortestRouteIndex].points)
+                val polyline: Polyline = googleMap!!.addPolyline(polyOptions)
+                polylineStartLatLng = polyline.points[0]
+                val k = polyline.points.size
+                polylineEndLatLng = polyline.points[k - 1]
+                polylines?.add(polyline)
+            }
+        }
+
+        //Add Marker on route starting position
+
+        //Add Marker on route starting position
+        val startMarker = MarkerOptions()
+        startMarker.position(polylineStartLatLng)
+        startMarker.title("My Location")
+        googleMap?.addMarker(startMarker)
+
+        //Add Marker on route ending position
+
+        //Add Marker on route ending position
+        val endMarker = MarkerOptions()
+        endMarker.position(polylineEndLatLng)
+        endMarker.title("Destination")
+        googleMap?.addMarker(endMarker)
+    }
+
+    override fun onRoutingCancelled() {
+    }
+
+    override fun onLocationChanged(location: Location) {
+        mLocation = location
+        val ltlng = LatLng(location.getLatitude(), location.getLongitude())
+        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+            ltlng, 16f
+        )
+        googleMap?.animateCamera(cameraUpdate)
     }
 
 
