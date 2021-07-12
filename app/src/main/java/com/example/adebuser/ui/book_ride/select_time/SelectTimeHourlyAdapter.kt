@@ -17,9 +17,7 @@ public class SelectTimeHourlyAdapter(
 ) :
     androidx.recyclerview.widget.RecyclerView.Adapter<SelectTimeHourlyAdapter.SelectTimeHourlyViewHolder>() {
 
-
-
-
+    var selectedItem=0
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,31 +34,36 @@ public class SelectTimeHourlyAdapter(
     }
 
     override fun onBindViewHolder(holder: SelectTimeHourlyViewHolder, position: Int) {
-
         holder.bind(selectTimeHourlyList[position].time,position)
-
-        if(selectTimeHourlyList[position].enabled) {
-            holder.tvTime.setBackgroundResource(R.drawable.drawable_light_blue_curve)
-            holder.tvTime.setTextColor(ContextCompat.getColor(context, R.color.white))
-        }
-
-        else {
-            holder.tvTime.setBackgroundResource(R.drawable.drawable_grey_editext)
-
-            //light_blue
-            holder.tvTime.setTextColor(ContextCompat.getColor(context, R.color.light_blue))
-        }
 
     }
 
     inner class SelectTimeHourlyViewHolder(private val binding: RvSelectTimeHourlyBinding) :
         androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         val tvTime=binding.tvHour
+
         fun bind(time: String, position: Int) {
             binding.tvHour.text=time.toString().trim()
             binding.tvHour.setOnClickListener {
+                selectedItem=position
+                notifyDataSetChanged()
+
                 selectTimeListener.onHourlyTime(position,false)
 
+            }
+
+            if(selectedItem==adapterPosition)
+            {
+                binding.tvHour.setBackgroundResource(R.drawable.drawable_light_blue_curve)
+                binding.tvHour.setTextColor(ContextCompat.getColor(context, R.color.white))
+            }
+
+            else
+            {
+                binding.tvHour.setBackgroundResource(R.drawable.drawable_grey_editext)
+
+                //light_blue
+                binding.tvHour.setTextColor(ContextCompat.getColor(context, R.color.light_blue))
             }
 
 

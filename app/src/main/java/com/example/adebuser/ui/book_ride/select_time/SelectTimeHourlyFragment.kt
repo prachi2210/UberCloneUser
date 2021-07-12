@@ -14,15 +14,11 @@ import java.util.*
 
 
 class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectTimeHourlyListener {
-
     private var _binding: FragmentSelectTimeHourlyBinding? = null
     private val binding get() = _binding!!
     private val TAG = SelectTimeHourlyFragment::class.java.simpleName
-
     private var timePeriodArray = arrayOf<String>()
     var selectTimeHourlyList = arrayListOf<SelectTimeListHourly>()
-
-
     private lateinit var selectTimeHourlyAdapter: SelectTimeHourlyAdapter
 
 
@@ -47,12 +43,8 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         timePeriodArray = resources.getStringArray(R.array.time_period)
         generateTimePeriod()
-
-
         binding.ivClose.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .remove(this@SelectTimeHourlyFragment)
@@ -137,12 +129,12 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
 
     override fun onHourlyTime(position: Int, clearAllSelection: Boolean) {
         if (!clearAllSelection) {
-            binding.tvManually.text =
-                requireActivity().resources.getString(R.string.select_manually)
+            binding.tvManually.text = requireActivity().resources.getString(R.string.select_manually)
+            selectTimeHourlyAdapter.selectedItem=position
+
         }
-        for (i in selectTimeHourlyList.indices) {
-            selectTimeHourlyList[i].enabled = position == i && !clearAllSelection
-        }
+        else
+            selectTimeHourlyAdapter.selectedItem=-1
         selectTimeHourlyAdapter.notifyDataSetChanged()
 
     }

@@ -37,21 +37,25 @@ class PaymentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.e(TAG,"type=$type")
-
-
+        Log.e(TAG, "type=$type")
         if (type == "home") {
             binding.ivBack.show()
             binding.ivLogo.hide()
+            binding.radioGrp.show()
+            binding.rlCard.hide()
+            binding.tvCash.hide()
+
         } else {
             binding.ivLogo.show()
+            binding.rlCard.show()
+            binding.tvCash.show()
             binding.ivBack.hide()
-
+            binding.radioGrp.hide()
         }
 
         binding.ivBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this@PaymentFragment).commit()
+            requireActivity().supportFragmentManager.beginTransaction().remove(this@PaymentFragment)
+                .commit()
 
         }
     }
@@ -61,8 +65,6 @@ class PaymentFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 
 
     companion object {
@@ -76,7 +78,6 @@ class PaymentFragment : BaseFragment() {
                 }
             }
     }
-
 
 
 }
