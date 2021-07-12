@@ -1,18 +1,21 @@
 package com.example.adebuser.ui.payment_method
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.adebuser.databinding.FragmentPaymentBinding
 import com.example.adebuser.base.BaseFragment
+import com.example.adebuser.extensions.hide
+import com.example.adebuser.extensions.show
 
 class PaymentFragment : BaseFragment() {
 
     private var type: String? = null
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
-
+    private val TAG = PaymentFragment::class.java.simpleName
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +35,25 @@ class PaymentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.e(TAG, "type=$type")
         if (type == "home") {
-            binding.backPress.visibility = View.VISIBLE
-        } else {
-            binding.backPress.visibility = View.GONE
+            binding.ivBack.show()
+            binding.ivLogo.hide()
+            binding.radioGrp.show()
+            binding.rlCard.hide()
+            binding.tvCash.hide()
 
+        } else {
+            binding.ivLogo.show()
+            binding.rlCard.show()
+            binding.tvCash.show()
+            binding.ivBack.hide()
+            binding.radioGrp.hide()
         }
 
-        binding.backPress.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this@PaymentFragment).commit()
+        binding.ivBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this@PaymentFragment)
+                .commit()
 
         }
     }
@@ -51,8 +63,6 @@ class PaymentFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 
 
     companion object {
@@ -66,7 +76,6 @@ class PaymentFragment : BaseFragment() {
                 }
             }
     }
-
 
 
 }

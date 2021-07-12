@@ -101,7 +101,10 @@
     <string name="select_manually">Select Manually</string>
     <string name="confirm_booking">Confirm Booking</string>
     <string name="title">Title</string>
-
+    <string name="my_bookings">My Bookings</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="cash">Cash</string>
+    <string name="debit_credit_card">Debit/Credit Card</string>
 
 
 </resources>

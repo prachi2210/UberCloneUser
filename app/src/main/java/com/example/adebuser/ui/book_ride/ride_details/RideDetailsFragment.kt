@@ -46,7 +46,6 @@ class RideDetailsFragment : BaseFragment() {
 
         binding.cancelRide.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
             replaceFragmentFull(BookRideFragment.newInstance("choose vehicle"), "book")
         }
     }

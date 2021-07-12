@@ -21,5 +21,6 @@
     <color name="photo_grey">#aaaaaa</color>
     <color name="filter_grey">#6e6e6e</color>
     <color name="primary_purple">#7b39ed</color>
+    <color name="faded_blue_color">#2596be</color>
 
 </resources>

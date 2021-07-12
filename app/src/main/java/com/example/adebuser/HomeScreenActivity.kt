@@ -70,7 +70,7 @@ class HomeScreenActivity : BaseActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
-                    openFragment(selectTimeHourlyFragment)
+                    openFragment(profileFragment)
                     return@OnNavigationItemSelectedListener true
                 }
 

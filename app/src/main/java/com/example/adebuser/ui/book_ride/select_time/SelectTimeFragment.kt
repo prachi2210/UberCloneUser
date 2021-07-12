@@ -12,6 +12,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentSelectTimeBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
+import com.example.adebuser.ui.book_ride.select_time.modal.SelectTimeList
 import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
 import com.example.adebuser.base.BaseFragment
 
