@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_up"
+            android:id="@+id/iv_close"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_alignParentStart="true"
@@ -77,10 +77,14 @@
             />
 
         <EditText
+            android:id="@+id/et_time"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/_15sdp"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
             android:background="@drawable/drawable_grey_editext"
             android:drawableEnd="@drawable/ic_clock"
             android:fontFamily="@font/poppins"
@@ -89,6 +93,7 @@
             android:paddingTop="@dimen/_5sdp"
             android:paddingEnd="@dimen/_8sdp"
             android:paddingBottom="@dimen/_5sdp"
+
             android:textSize="14sp" />
 
     </RelativeLayout>
@@ -120,6 +125,7 @@
             android:textColor="@color/light_blue" />
 
         <TextView
+            android:id="@+id/tv_manually"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_gravity="start"

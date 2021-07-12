@@ -14,7 +14,9 @@ import com.example.adebuser.databinding.FragmentCarTypeBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.example.adebuser.ui.book_ride.add_coupons.CouponFragment
 import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
+import com.example.adebuser.ui.book_ride.select_car.CarTypeFragment.Companion.newInstance
 import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
+import com.example.adebuser.ui.book_ride.select_time.SelectTimeHourlyFragment
 import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.wizebrains.adventmingle.base.BaseFragment
@@ -71,6 +73,40 @@ class CarTypeFragment : BaseFragment() {
             )
         }
 
+
+
+        binding.linearSmall.setOnClickListener{
+            binding.ivSmallCar.alpha=1f
+            binding.ivMediumCar.alpha=0.3f
+            binding.ivLargeCar.alpha=0.3f
+            binding.ivLuxoryCar.alpha=0.3f
+
+        }
+
+        binding.linearMedium.setOnClickListener{
+            binding.ivMediumCar.alpha=1f
+            binding.ivSmallCar.alpha=0.3f
+            binding.ivLargeCar.alpha=0.3f
+            binding.ivLuxoryCar.alpha=0.3f
+        }
+
+
+
+        binding.linearLarge.setOnClickListener{
+            binding.ivLargeCar.alpha=1f
+            binding.ivSmallCar.alpha=0.3f
+            binding.ivMediumCar.alpha=0.3f
+            binding.ivLuxoryCar.alpha=0.3f
+        }
+
+        binding.linearLuxory.setOnClickListener{
+            binding.ivLuxoryCar.alpha=1f
+            binding.ivSmallCar.alpha=0.3f
+            binding.ivMediumCar.alpha=0.3f
+            binding.ivLargeCar.alpha=0.3f
+
+        }
+
         binding.bookRide.setOnClickListener {
 
             when (type) {
@@ -91,6 +127,9 @@ class CarTypeFragment : BaseFragment() {
                 }
 
                 "hourly" -> {
+                    requireActivity().supportFragmentManager.beginTransaction().remove(this@CarTypeFragment)
+                        .commit()
+                    openFragmentSmall(SelectTimeHourlyFragment.newInstance(type!!), "time")
 
                 }
             }

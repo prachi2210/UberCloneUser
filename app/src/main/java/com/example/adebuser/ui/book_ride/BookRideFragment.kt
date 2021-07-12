@@ -108,8 +108,10 @@ class BookRideFragment : BaseFragment() {
 
         }
 
-        binding.btnHourly.setOnClickListener {
-            type = "hourly"
+
+
+        binding.btnRegular.setOnClickListener {
+            type = "regular"
             (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
             setBackgroundAccordingToType()
             if (param == "booked") {
@@ -120,8 +122,8 @@ class BookRideFragment : BaseFragment() {
 
         }
 
-        binding.btnRegular.setOnClickListener {
-            type = "regular"
+        binding.btnHourly.setOnClickListener {
+            type = "hourly"
             (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
             setBackgroundAccordingToType()
             if (param == "booked") {

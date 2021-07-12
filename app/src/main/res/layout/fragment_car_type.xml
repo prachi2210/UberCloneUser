@@ -40,6 +40,7 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_small"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -49,12 +50,14 @@
 
 
             <ImageView
+                android:id="@+id/iv_small_car"
                 android:layout_width="wrap_content"
                 android:src="@drawable/ic_car_small"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"/>
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,6 +71,7 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_medium"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -77,10 +81,13 @@
 
 
             <ImageView
+                android:id="@+id/iv_medium_car"
                 android:layout_width="wrap_content"
                 android:src="@drawable/ic_car_medium"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content"/>
+                android:alpha="0.3"
+                android:layout_height="wrap_content"
+              />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -96,6 +103,7 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_large"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -105,9 +113,11 @@
 
 
             <ImageView
+                android:id="@+id/iv_large_car"
                 android:layout_width="wrap_content"
                 android:src="@drawable/ic_car_large"
                 android:layout_gravity="center"
+                android:alpha="0.3"
                 android:layout_height="wrap_content"/>
 
             <TextView
@@ -123,6 +133,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_luxory"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -132,9 +143,11 @@
 
 
             <ImageView
+                android:id="@+id/iv_luxory_car"
                 android:layout_width="wrap_content"
                 android:src="@drawable/ic_car_luxury"
                 android:layout_gravity="center"
+                android:alpha="0.3"
                 android:layout_height="wrap_content"/>
 
             <TextView

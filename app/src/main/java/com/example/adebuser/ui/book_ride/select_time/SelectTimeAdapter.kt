@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.adebuser.databinding.RvSelectTimeBinding
 import com.example.adebuser.extensions.hide
 import com.example.adebuser.extensions.show
+import com.example.adebuser.ui.book_ride.select_time.modal.SelectTimeList
 
 
 public class SelectTimeAdapter(

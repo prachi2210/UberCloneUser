@@ -3,14 +3,18 @@ package com.example.adebuser.ui.book_ride.select_time
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import com.example.adebuser.R
 import com.example.adebuser.databinding.RvSelectTimeHourlyBinding
+import com.example.adebuser.ui.book_ride.select_time.modal.SelectTimeListHourly
 
 public class SelectTimeHourlyAdapter(
     val context: Context,
-    var timePeriodArray: Array<String>,
-   var selectTimeListener:SelectTimeHourlyListener
+    var selectTimeListener: SelectTimeHourlyListener,
+    var selectTimeHourlyList: ArrayList<SelectTimeListHourly>
 
-    ) :
+
+) :
     androidx.recyclerview.widget.RecyclerView.Adapter<SelectTimeHourlyAdapter.SelectTimeHourlyViewHolder>() {
 
 
@@ -28,24 +32,35 @@ public class SelectTimeHourlyAdapter(
     }
 
     override fun getItemCount(): Int {
-        return timePeriodArray.size
+        return selectTimeHourlyList.size
     }
 
     override fun onBindViewHolder(holder: SelectTimeHourlyViewHolder, position: Int) {
 
-        holder.bind(timePeriodArray[position],position)
+        holder.bind(selectTimeHourlyList[position].time,position)
 
+        if(selectTimeHourlyList[position].enabled) {
+            holder.tvTime.setBackgroundResource(R.drawable.drawable_light_blue_curve)
+            holder.tvTime.setTextColor(ContextCompat.getColor(context, R.color.white))
+        }
+
+        else {
+            holder.tvTime.setBackgroundResource(R.drawable.drawable_grey_editext)
+
+            //light_blue
+            holder.tvTime.setTextColor(ContextCompat.getColor(context, R.color.light_blue))
+        }
 
     }
 
     inner class SelectTimeHourlyViewHolder(private val binding: RvSelectTimeHourlyBinding) :
         androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-
-
+        val tvTime=binding.tvHour
         fun bind(time: String, position: Int) {
             binding.tvHour.text=time.toString().trim()
             binding.tvHour.setOnClickListener {
-                selectTimeListener.onHourlyTime(position)
+                selectTimeListener.onHourlyTime(position,false)
+
             }
 
 
@@ -55,7 +70,7 @@ public class SelectTimeHourlyAdapter(
 
     interface SelectTimeHourlyListener
     {
-        fun onHourlyTime(position: Int)
+        fun onHourlyTime(position: Int,clearAllSelection:Boolean)
     }
 
 
