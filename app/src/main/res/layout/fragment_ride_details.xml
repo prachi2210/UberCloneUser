@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_2sdp"
-          android:src="@drawable/ic_fav_selected"
+            android:src="@drawable/ic_fav_selected"
             app:layout_constraintStart_toEndOf="@+id/tv_name"
             app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
@@ -121,7 +121,7 @@
             android:textSize="12sp"
             android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
 
 
         <View
@@ -145,17 +145,17 @@
         android:layout_height="wrap_content">
 
 
-    <TextView
-        android:id="@+id/toAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:drawablePadding="@dimen/_12sdp"
-        android:text="16th Avenue, 4th Cross Street "
-         android:textSize="15sp"
-        android:textColor="@color/dark_blue"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:drawableStartCompat="@drawable/ic_purple_cirlce" />
+        <TextView
+            android:id="@+id/toAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:drawablePadding="@dimen/_12sdp"
+            android:text="16th Avenue, 4th Cross Street "
+            android:textSize="15sp"
+            android:textColor="@color/dark_blue"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:drawableStartCompat="@drawable/ic_purple_cirlce" />
 
 
         <View
@@ -167,32 +167,32 @@
             android:layout_height="1dp"
             android:background="@color/edittext_blue"
             />
-    <TextView
-        android:layout_width="4dp"
-        android:layout_height="23dp"
-        android:gravity="center"
-        android:id="@+id/dashLine"
-        android:layout_marginTop="-3dp"
-        android:layout_marginStart="1.5dp"
-        android:layout_below="@+id/toAddress"
-        android:background="@drawable/drawable_dash_line"
-        android:layerType="software" />
+        <TextView
+            android:layout_width="4dp"
+            android:layout_height="23dp"
+            android:gravity="center"
+            android:id="@+id/dashLine"
+            android:layout_marginTop="-3dp"
+            android:layout_marginStart="1.5dp"
+            android:layout_below="@+id/toAddress"
+            android:background="@drawable/drawable_dash_line"
+            android:layerType="software" />
 
 
 
 
-    <TextView
-        android:id="@+id/FromAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:layout_marginTop="-4dp"
-        android:textColor="@color/dark_blue"
-        android:layout_below="@+id/dashLine"
-        android:drawablePadding="@dimen/_12sdp"
-        android:text="Home"
-        android:textSize="15sp"
-        app:drawableStartCompat="@drawable/ic_blue_circle" />
+        <TextView
+            android:id="@+id/FromAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:layout_marginTop="-4dp"
+            android:textColor="@color/dark_blue"
+            android:layout_below="@+id/dashLine"
+            android:drawablePadding="@dimen/_12sdp"
+            android:text="Home"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_blue_circle" />
 
     </RelativeLayout>
 
@@ -210,19 +210,19 @@
 
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTop="@drawable/ic_phone_big"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:textSize="15sp"
-        android:textColor="@color/dark_blue"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:drawablePadding="@dimen/_12sdp"
-        android:id="@+id/call_driver"
-        android:fontFamily="@font/poppins"
-        android:text="@string/call_driver" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_phone_big"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textSize="15sp"
+            android:textColor="@color/dark_blue"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:drawablePadding="@dimen/_12sdp"
+            android:id="@+id/call_driver"
+            android:fontFamily="@font/poppins"
+            android:text="@string/call_driver" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

@@ -39,10 +39,8 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener,
     private var googleMap: GoogleMap? = null
     private val LOCATION_REQUEST_CODE = 23
     var locationPermission = false
-    private var startPoint: LatLng? =  LatLng(
-        30.7411,
-        76.7790
-    )
+    private var startPoint: LatLng?=null
+
     private var endPoint: LatLng? = null
     private var polylines: ArrayList<Polyline>? = null
 
