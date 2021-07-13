@@ -1,14 +1,21 @@
 package com.example.adebuser.ui.book_ride.select_time
 
+import android.app.Dialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageView
+import androidx.appcompat.widget.LinearLayoutCompat
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentSelectTimeHourlyBinding
 import com.example.adebuser.base.BaseFragment
+import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.example.adebuser.ui.book_ride.select_time.modal.SelectTimeListHourly
+import com.example.adebuser.ui.me.favourite_rider.FavouriteDriverActivity
 import java.util.*
 
 
@@ -62,7 +69,14 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
         }
 
         binding.btnConfirm.setOnClickListener {
+            openDialog()
 
+        }
+
+
+        binding.closeFragment.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this@SelectTimeHourlyFragment)
+                .commit()
         }
     }
 
@@ -135,6 +149,41 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
         else
             selectTimeHourlyAdapter.selectedItem=-1
         selectTimeHourlyAdapter.notifyDataSetChanged()
+
+    }
+    private fun openDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.driver_selection_layout)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show()
+
+        val cancelBtn: ImageView = dialog.findViewById(R.id.cancel)
+        val favoriteBtn: LinearLayoutCompat = dialog.findViewById(R.id.select_favorite_driver)
+        val automaticBtn: LinearLayoutCompat = dialog.findViewById(R.id.choose_automatically)
+
+        cancelBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        favoriteBtn.setOnClickListener {
+            val intent: Intent = Intent(requireActivity(), FavouriteDriverActivity::class.java)
+            startActivityForResult(intent, 1);
+            dialog.dismiss()
+
+
+        }
+
+        automaticBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this@SelectTimeHourlyFragment)
+                .commit()
+
+            replaceFragmentFull(BookRideFragment.newInstance("booked"), "booked ride")
+            dialog.dismiss()
+
+
+        }
 
     }
 

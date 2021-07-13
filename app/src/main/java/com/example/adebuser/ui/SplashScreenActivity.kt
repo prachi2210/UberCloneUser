@@ -1,11 +1,10 @@
-package com.example.adebuser.activities
+package com.example.adebuser.ui
 
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.example.adebuser.HomeScreenActivity
 import com.example.adebuser.R
-import com.example.adebuser.ui.auth.LoginActivity
+import com.example.adebuser.ui.home.HomeScreenActivity
 import com.example.adebuser.utils.ActivityStarter
 import com.example.adebuser.base.BaseActivity
 

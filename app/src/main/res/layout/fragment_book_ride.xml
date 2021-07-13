@@ -106,7 +106,8 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
             android:layout_marginStart="50dp"
             android:background="@drawable/drawable_white_curve"
             android:elevation="5dp"
@@ -118,7 +119,12 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
-                android:textSize="14sp"
+                android:textSize="15sp"
+                android:drawableStart="@drawable/ic_map_pointer"
+                android:id="@+id/tvCurrentAddress"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/_8sdp"
                 android:textColor="@color/blue"
                 android:fontFamily="@font/poppins"
                 android:text="16th Avenue 4th Cross Street"
@@ -126,9 +132,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textColor="@color/text_grey"
                 android:fontFamily="@font/poppins"
+                android:drawablePadding="@dimen/_8sdp"
+                android:gravity="center_vertical"
+                android:id="@+id/tvDestinationAddress"
+                android:drawableStart="@drawable/ic_navigation"
                 android:layout_marginTop="15dp"
                 android:text="Destination please?"
                 android:layout_height="wrap_content"/>

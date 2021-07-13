@@ -8,17 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.ContextCompat
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentCarTypeBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.example.adebuser.ui.book_ride.add_coupons.CouponFragment
 
-import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
-import com.example.adebuser.ui.book_ride.select_car.CarTypeFragment.Companion.newInstance
 import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
 import com.example.adebuser.ui.book_ride.select_time.SelectTimeHourlyFragment
-import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
+import com.example.adebuser.ui.me.favourite_rider.FavouriteDriverActivity
 import com.example.adebuser.ui.payment_method.PaymentFragment
 import com.example.adebuser.base.BaseFragment
 
@@ -29,6 +29,8 @@ class CarTypeFragment : BaseFragment() {
     private var _binding: FragmentCarTypeBinding? = null
     private val binding get() = _binding!!
     private var type: String? = null
+    private var carType: String? = "small"
+    private var gearType: String? = "manual"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +79,7 @@ class CarTypeFragment : BaseFragment() {
 
 
         binding.linearSmall.setOnClickListener{
+            carType = "small"
             binding.ivSmallCar.alpha=1f
             binding.ivMediumCar.alpha=0.3f
             binding.ivLargeCar.alpha=0.3f
@@ -85,6 +88,7 @@ class CarTypeFragment : BaseFragment() {
         }
 
         binding.linearMedium.setOnClickListener{
+            carType = "medium"
             binding.ivMediumCar.alpha=1f
             binding.ivSmallCar.alpha=0.3f
             binding.ivLargeCar.alpha=0.3f
@@ -94,6 +98,7 @@ class CarTypeFragment : BaseFragment() {
 
 
         binding.linearLarge.setOnClickListener{
+            carType = "large"
             binding.ivLargeCar.alpha=1f
             binding.ivSmallCar.alpha=0.3f
             binding.ivMediumCar.alpha=0.3f
@@ -101,12 +106,29 @@ class CarTypeFragment : BaseFragment() {
         }
 
         binding.linearLuxory.setOnClickListener{
+            carType = "luxury"
             binding.ivLuxoryCar.alpha=1f
             binding.ivSmallCar.alpha=0.3f
             binding.ivMediumCar.alpha=0.3f
             binding.ivLargeCar.alpha=0.3f
 
         }
+
+
+
+        binding.btnGearTypeAutomatic.setOnClickListener {
+            gearType = "manual"
+            buttonActiveState(binding.btnGearTypeAutomatic)
+            buttonInActiveState(binding.btnGearTypeManual)
+        }
+
+        binding.btnGearTypeManual.setOnClickListener {
+            gearType = "automatic"
+            buttonInActiveState(binding.btnGearTypeAutomatic)
+            buttonActiveState(binding.btnGearTypeManual)
+        }
+
+
 
         binding.bookRide.setOnClickListener {
 
@@ -167,7 +189,7 @@ class CarTypeFragment : BaseFragment() {
         }
 
         favoriteBtn.setOnClickListener {
-            val intent: Intent = Intent(requireActivity(), FavouriteRiderActivity::class.java)
+            val intent: Intent = Intent(requireActivity(), FavouriteDriverActivity::class.java)
             startActivityForResult(intent, 1);
             dialog.dismiss()
 
@@ -183,6 +205,24 @@ class CarTypeFragment : BaseFragment() {
 
 
         }
+
+    }
+
+    private fun buttonActiveState(appCompatButton: AppCompatButton) {
+        appCompatButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        appCompatButton.setBackgroundResource(
+            R.drawable.drawable_blue_curve
+        )
+
+    }
+
+
+    private fun buttonInActiveState(appCompatButton: AppCompatButton) {
+        appCompatButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_grey))
+        appCompatButton.setBackgroundResource(
+            R.drawable.drawable_editext
+
+        )
 
     }
 

@@ -7,7 +7,7 @@ import android.util.Patterns
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.HomeScreenActivity
+import com.example.adebuser.ui.home.HomeScreenActivity
 import com.example.adebuser.R
 import com.example.adebuser.databinding.ActivitySignUpBinding
 import com.example.adebuser.utils.ActivityStarter

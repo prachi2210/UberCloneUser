@@ -13,7 +13,7 @@ import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentSelectTimeBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
 import com.example.adebuser.ui.book_ride.select_time.modal.SelectTimeList
-import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
+import com.example.adebuser.ui.me.favourite_rider.FavouriteDriverActivity
 import com.example.adebuser.base.BaseFragment
 
 
@@ -109,7 +109,7 @@ class SelectTimeFragment : BaseFragment(), SelectTimeAdapter.SelectTimeListener 
         }
 
         favoriteBtn.setOnClickListener {
-            val intent: Intent = Intent(requireActivity(), FavouriteRiderActivity::class.java)
+            val intent: Intent = Intent(requireActivity(), FavouriteDriverActivity::class.java)
             startActivityForResult(intent, 1);
             dialog.dismiss()
 

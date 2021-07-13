@@ -3,22 +3,20 @@ package com.example.adebuser.ui.me.favourite_rider
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 
 import com.example.adebuser.base.BaseActivity
 import com.example.adebuser.databinding.ActivityFavouriteRiderBinding
-import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
 
-class FavouriteRiderActivity : BaseActivity(), FavoriteRiderAdapter.BookDriver{
+class FavouriteDriverActivity : BaseActivity(), FavoriteDriverAdapter.BookDriver{
     private lateinit var binding: ActivityFavouriteRiderBinding
-    private val TAG: String = FavouriteRiderActivity::class.java.simpleName
-    private val favoriteRiderAdapter: FavoriteRiderAdapter by lazy {
-        FavoriteRiderAdapter(this , this)
+    private val TAG: String = FavouriteDriverActivity::class.java.simpleName
+    private val favoriteRiderAdapter: FavoriteDriverAdapter by lazy {
+        FavoriteDriverAdapter(this , this)
     }
 
     companion object {
         fun getStartIntent(context: Context): Intent {
-            return Intent(context, FavouriteRiderActivity::class.java)
+            return Intent(context, FavouriteDriverActivity::class.java)
         }
     }
 

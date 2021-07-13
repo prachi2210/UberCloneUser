@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.adebuser.databinding.RvFavouriteRiderBinding
 
-public class FavoriteRiderAdapter(
+public class FavoriteDriverAdapter(
     val context: Context,
     val bookDriver: BookDriver) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<FavoriteRiderAdapter.FavouriteRiderViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<FavoriteDriverAdapter.FavouriteRiderViewHolder>() {
 
 
     override fun onCreateViewHolder(

@@ -1,16 +1,15 @@
-package com.example.adebuser
+package com.example.adebuser.ui.home
 
 
-import android.R.attr
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.example.adebuser.R
 import com.example.adebuser.base.BaseActivity
 import com.example.adebuser.databinding.ActivityHomeScreenBinding
 import com.example.adebuser.ui.book_ride.BookRideFragment
-import com.example.adebuser.ui.book_ride.select_time.SelectTimeFragment
 import com.example.adebuser.ui.me.ProfileFragment
 import com.example.adebuser.ui.my_booking.MyBookingFragment
 import com.example.adebuser.ui.payment_method.PaymentFragment

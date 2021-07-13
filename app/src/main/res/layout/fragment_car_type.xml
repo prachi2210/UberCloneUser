@@ -184,12 +184,12 @@
             android:layout_weight="1"
             android:drawablePadding="5dp"
             android:paddingStart="@dimen/_20sdp"
+            android:id="@+id/btn_gear_type_manual"
             android:paddingEnd="@dimen/_20sdp"
             android:drawableStart="@drawable/ic_manual"
             android:background="@color/blue"
             android:fontFamily="@font/poppins"
             android:text="@string/manual"
-
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
@@ -201,6 +201,7 @@
             android:layout_weight="1"
             android:paddingStart="@dimen/_20sdp"
             android:paddingEnd="@dimen/_20sdp"
+            android:id="@+id/btn_gear_type_automatic"
             android:drawableStart="@drawable/ic_automatic"
             android:background="@drawable/drawable_editext"
             android:fontFamily="@font/poppins"

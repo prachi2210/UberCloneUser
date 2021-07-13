@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.HomeScreenActivity
+import com.example.adebuser.ui.home.HomeScreenActivity
 import com.example.adebuser.R
 import com.example.adebuser.base.ViewModelProviderFactory
 import com.example.adebuser.data.api.ApiHelper
@@ -15,7 +15,7 @@ import com.example.adebuser.data.api.RetrofitBuilder
 import com.example.adebuser.databinding.FragmentProfileBinding
 import com.example.adebuser.ui.auth.AuthViewModel
 import com.example.adebuser.ui.auth.LoginActivity
-import com.example.adebuser.ui.me.favourite_rider.FavouriteRiderActivity
+import com.example.adebuser.ui.me.favourite_rider.FavouriteDriverActivity
 import com.example.adebuser.ui.rate.DriverRatingActivity
 import com.example.adebuser.utils.ActivityStarter
 import com.example.adebuser.utils.Status
@@ -95,12 +95,12 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             }
 
             binding.tvFavDriver -> {
-                ActivityStarter.of(FavouriteRiderActivity.getStartIntent(requireActivity()))
+                ActivityStarter.of(FavouriteDriverActivity.getStartIntent(requireActivity()))
                     .startFrom(this)
             }
 
             binding.ivArrowFav -> {
-                ActivityStarter.of(FavouriteRiderActivity.getStartIntent(requireActivity()))
+                ActivityStarter.of(FavouriteDriverActivity.getStartIntent(requireActivity()))
                     .startFrom(this)
             }
             binding.tvSettings -> {

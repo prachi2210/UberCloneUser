@@ -1,20 +1,12 @@
 package com.example.adebuser.ui.auth
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.HomeScreenActivity
+import com.example.adebuser.ui.home.HomeScreenActivity
 import com.example.adebuser.R
 import com.example.adebuser.base.ViewModelProviderFactory
 import com.example.adebuser.data.api.ApiHelper
