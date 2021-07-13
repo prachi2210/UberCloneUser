@@ -44,11 +44,9 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, On
     private var mMapView: MapView? = null
     private var googleMap: GoogleMap? = null
     private val LOCATION_PERMISSION_REQUEST_CODE = 999
-    var locationPermission = false
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var mLocationManager: LocationManager? = null
     private var mLocationRequest: LocationRequest? = null
-
 
     private var startPoint: LatLng? = null
     private var endPoint: LatLng? = null
