@@ -69,8 +69,12 @@ class ApiHelper(private val apiService: ApiService) {
     ) = apiService.createNewPassword(phoneNumber, password)
 
     suspend fun getFavoriteDriver(
-        userRef: RequestBody?
-    ) = apiService.getFavoriteDrivers(userRef)
+        userRef: RequestBody?,
+        latitude: RequestBody?,
+        longitude: RequestBody?,
+        gearType: RequestBody?,
+        carType: RequestBody?
+    ) = apiService.getFavoriteDrivers(userRef, latitude, longitude, gearType, carType)
 
     suspend fun confirmBooking(
         userRef: RequestBody,
@@ -83,7 +87,12 @@ class ApiHelper(private val apiService: ApiService) {
         carType: RequestBody,
         scheduleTime: RequestBody,
         paymentMode: RequestBody,
-        fareAmount: RequestBody
+        fareAmount: RequestBody,
+        pickupName: RequestBody,
+        dropOffName: RequestBody,
+        coupon: RequestBody,
+        hourly: RequestBody,
+        favoriteDriverRef: RequestBody,
     ) = apiService.confirmBooking(
         userRef,
         chooseType,
@@ -95,10 +104,32 @@ class ApiHelper(private val apiService: ApiService) {
         carType,
         scheduleTime,
         paymentMode,
-        fareAmount
+        fareAmount,
+        pickupName,
+        dropOffName,
+        coupon,
+        hourly,
+        favoriteDriverRef
     )
 
+    suspend fun getRideConfirmation(
+        userRef: RequestBody?
+    ) = apiService.getDriverDetails(userRef)
 
+
+    suspend fun getDriverLocation(
+        driverRef: RequestBody?
+    ) = apiService.getDriverDetails(driverRef)
+
+
+    suspend fun userStatus(
+        userRef: RequestBody?
+    ) = apiService.getUserStatus(userRef)
+
+
+    suspend fun cancelTrip(
+        rideId: RequestBody?
+    ) = apiService.cancelTrip(rideId)
 }
 
 

@@ -297,6 +297,7 @@ android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/poppins"
             android:layout_gravity="center"
             android:textSize="12sp"
+            android:id="@+id/date"
             android:text="Day, Date : 06 July 2021"
             android:textColor="@color/white"
             />

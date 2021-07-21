@@ -15,7 +15,15 @@ class AppRepository(var apiHelper: ApiHelper) {
         deviceToken: RequestBody,
         latitude: RequestBody?,
         longitude: RequestBody?
-    ) = apiHelper.getLogin(userEmail, userPassword, fieldType, OSType, deviceToken,latitude,longitude)
+    ) = apiHelper.getLogin(
+        userEmail,
+        userPassword,
+        fieldType,
+        OSType,
+        deviceToken,
+        latitude,
+        longitude
+    )
 
 
     suspend fun signUp(
@@ -25,9 +33,7 @@ class AppRepository(var apiHelper: ApiHelper) {
         password: RequestBody?,
         deviceType: RequestBody?,
         deviceToken: RequestBody?,
-    )= apiHelper.signUp(name, email, phoneNumber, password,deviceType, deviceToken)
-
-
+    ) = apiHelper.signUp(name, email, phoneNumber, password, deviceType, deviceToken)
 
 
     suspend fun logout(
@@ -61,8 +67,12 @@ class AppRepository(var apiHelper: ApiHelper) {
 
 
     suspend fun getFavoriteDriver(
-        userRef: RequestBody?
-    ) = apiHelper.getFavoriteDriver(userRef)
+        userRef: RequestBody?,
+        latitude: RequestBody?,
+        longitude: RequestBody?,
+        gearType: RequestBody?,
+        carType: RequestBody?
+    ) = apiHelper.getFavoriteDriver(userRef, latitude, longitude, gearType, carType)
 
 
     suspend fun confirmBooking(
@@ -76,7 +86,12 @@ class AppRepository(var apiHelper: ApiHelper) {
         carType: RequestBody,
         scheduleTime: RequestBody,
         paymentMode: RequestBody,
-        fareAmount: RequestBody
+        fareAmount: RequestBody,
+        pickupName: RequestBody,
+        dropOffName: RequestBody,
+        coupon: RequestBody,
+        hourly: RequestBody,
+        favoriteDriverRef: RequestBody,
     ) = apiHelper.confirmBooking(
         userRef,
         chooseType,
@@ -88,7 +103,30 @@ class AppRepository(var apiHelper: ApiHelper) {
         carType,
         scheduleTime,
         paymentMode,
-        fareAmount
+        fareAmount,
+        pickupName,
+        dropOffName,
+        coupon,
+        hourly,
+        favoriteDriverRef
     )
 
+    suspend fun getRideConfirmation(
+        userRef: RequestBody?
+    ) = apiHelper.getRideConfirmation(userRef)
+
+    suspend fun getDriverLocation(
+        driverRef: RequestBody?
+    ) = apiHelper.getDriverLocation(driverRef)
+
+
+    suspend fun userStatus(
+        userRef: RequestBody?
+    ) = apiHelper.userStatus(userRef)
+
+    suspend fun cancelTrip(
+        rideId: RequestBody?
+    ) = apiHelper.cancelTrip(rideId)
 }
+
+

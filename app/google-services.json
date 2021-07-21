@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1051778635954",
+    "project_id": "adebuser-319305",
+    "storage_bucket": "adebuser-319305.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051778635954:android:112615f52f0533a00cd1ab",
+        "android_client_info": {
+          "package_name": "com.example.adebuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051778635954-pmk9u7m4pcqnk7j8mdro23dj4soqf6a4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA1cGH_XqSnX4KFd2BPx_3Mp5ETH22XwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051778635954-pmk9u7m4pcqnk7j8mdro23dj4soqf6a4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

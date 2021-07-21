@@ -15,10 +15,11 @@ object Constants {
     const val CHANNEL_NAME = "Advent mingle"
     const val CHANNEL_DESC = "firebase push notification"
     const val DEVICE_TOKEN = "device token"
-    const val TYPE = "type"
+    const val TYPE = "notifyType"
     const val ACTION_CALL = "action_call"
     const val DISCONNECT_CALL = "disconnect_call"
     const val SENDTOREF = "sendToRef"
     const val SENDFROMREF = "sendFromRef"
+    const val PHOTO_BASE_URL = "https://xpertidea.com/mobile/adebApp/"
 
 }

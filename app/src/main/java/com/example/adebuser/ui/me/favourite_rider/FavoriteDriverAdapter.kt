@@ -2,12 +2,20 @@ package com.example.adebuser.ui.me.favourite_rider
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.adebuser.R
 import com.example.adebuser.databinding.RvFavouriteRiderBinding
+import com.example.adebuser.ui.me.favourite_rider.response.FavoriteDriver
 
 public class FavoriteDriverAdapter(
     val context: Context,
-    val bookDriver: BookDriver) :
+    val bookDriver: BookDriver,
+    val favoriteRiderList: ArrayList<FavoriteDriver>,
+    val from: String?
+) :
     androidx.recyclerview.widget.RecyclerView.Adapter<FavoriteDriverAdapter.FavouriteRiderViewHolder>() {
 
 
@@ -22,20 +30,36 @@ public class FavoriteDriverAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return favoriteRiderList.size
     }
 
     override fun onBindViewHolder(holder: FavouriteRiderViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(favoriteRiderList[position])
 
     }
 
     inner class FavouriteRiderViewHolder(private val binding: RvFavouriteRiderBinding) :
         androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
+        fun bind(favoriteDriver: FavoriteDriver) {
+
+            if (from == "profile") {
+                binding.btnBook.visibility = View.GONE
+                binding.tvTime.visibility = View.GONE
+
+            }
+
+            binding.tvName.text = favoriteDriver.name
+
+            Glide.with(context)
+                .load(favoriteDriver.profilePic)
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.profile)
+                )
+                .into(binding.ivProfile)
 
             binding.btnBook.setOnClickListener {
-                bookDriver.onBookClick(adapterPosition)
+                bookDriver.onBookClick(adapterPosition, favoriteDriver.favoriteRef)
             }
 
         }
@@ -43,9 +67,8 @@ public class FavoriteDriverAdapter(
     }
 
 
-    interface BookDriver
-    {
-        fun onBookClick(position: Int)
+    interface BookDriver {
+        fun onBookClick(position: Int, userRef: String)
 
     }
 }

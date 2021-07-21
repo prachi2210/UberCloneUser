@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.adebuser.R
 import com.example.adebuser.databinding.RvSelectTimeHourlyBinding
-import com.example.adebuser.ui.book_ride.select_time.modal.SelectTimeListHourly
+import com.example.adebuser.ui.book_ride.select_time.model.SelectTimeListHourly
 
 public class SelectTimeHourlyAdapter(
     val context: Context,

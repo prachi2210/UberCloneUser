@@ -1,18 +1,27 @@
 package com.example.adebuser.utils
 
 import android.Manifest
-import android.app.Activity
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.LocationManager
+import android.media.AudioAttributes
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
+import android.os.PowerManager
 import android.provider.Settings
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.adebuser.R
-import com.google.android.material.internal.CheckableImageButton
+import com.example.adebuser.ui.home.HomeScreenActivity
+import java.util.*
 
 object PermissionUtils {
     /**
@@ -60,4 +69,5 @@ object PermissionUtils {
             }
             .show()
     }
+
 }

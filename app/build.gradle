@@ -4,7 +4,8 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 }
-
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -52,6 +53,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -74,5 +76,13 @@ dependencies {
     implementation 'com.github.jd-alexander:library:1.1.0'
     implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+//lottie animation
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+//    firebase
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
 
 }

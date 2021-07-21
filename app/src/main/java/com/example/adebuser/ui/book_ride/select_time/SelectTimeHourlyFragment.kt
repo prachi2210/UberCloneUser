@@ -10,12 +10,20 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.adebuser.R
 import com.example.adebuser.databinding.FragmentSelectTimeHourlyBinding
 import com.example.adebuser.base.BaseFragment
+import com.example.adebuser.base.ViewModelProviderFactory
+import com.example.adebuser.data.api.ApiHelper
+import com.example.adebuser.data.api.RetrofitBuilder
 import com.example.adebuser.ui.book_ride.BookRideFragment
-import com.example.adebuser.ui.book_ride.select_time.modal.SelectTimeListHourly
+import com.example.adebuser.ui.book_ride.BookRideViewModel
+import com.example.adebuser.ui.book_ride.booking_request.BookRideRequest
+import com.example.adebuser.ui.book_ride.select_time.model.SelectTimeListHourly
+import com.example.adebuser.ui.home.HomeScreenActivity
 import com.example.adebuser.ui.me.favourite_rider.FavouriteDriverActivity
+import com.example.adebuser.utils.Status
 import java.util.*
 
 
@@ -26,18 +34,26 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
     private var timePeriodArray = arrayOf<String>()
     var selectTimeHourlyList = arrayListOf<SelectTimeListHourly>()
     private lateinit var selectTimeHourlyAdapter: SelectTimeHourlyAdapter
+    private var bookRideRequest: BookRideRequest? = null
+    private lateinit var bookViewModel: BookRideViewModel
 
 
     companion object {
         @JvmStatic
-        fun newInstance(type: String) =
+        fun newInstance(bookRideRequest: BookRideRequest) =
             SelectTimeHourlyFragment().apply {
                 arguments = Bundle().apply {
-                    putString("type", type)
+                    putParcelable("data", bookRideRequest)
                 }
             }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            bookRideRequest = it.getParcelable<BookRideRequest>("data")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +65,14 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        bookViewModel = ViewModelProvider(
+            this,
+            ViewModelProviderFactory(ApiHelper(RetrofitBuilder.apiService))
+        ).get(BookRideViewModel::class.java)
+
+
+
         timePeriodArray = resources.getStringArray(R.array.time_period)
         generateTimePeriod()
         binding.ivClose.setOnClickListener {
@@ -69,13 +93,17 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
         }
 
         binding.btnConfirm.setOnClickListener {
-            openDialog()
-
+            if (bookRideRequest?.hourly.isNullOrEmpty() || bookRideRequest?.scheduleTime.isNullOrEmpty()) {
+                (activity as HomeScreenActivity).setError(getString(R.string.pick_up_error))
+            } else {
+                openDialog()
+            }
         }
 
 
         binding.closeFragment.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this@SelectTimeHourlyFragment)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this@SelectTimeHourlyFragment)
                 .commit()
         }
     }
@@ -113,6 +141,7 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
                         )
                     } Hrs"
 
+                    bookRideRequest?.hourly = binding.tvManually.text.toString()
 
                 } else {
 
@@ -122,6 +151,8 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
                             if (hourOfDay < 12) "AM" else "PM"
                         )
                     )
+
+                    bookRideRequest?.scheduleTime = binding.etTime.text.toString()
                 }
 
 
@@ -142,21 +173,24 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
 
     override fun onHourlyTime(position: Int, clearAllSelection: Boolean) {
         if (!clearAllSelection) {
-            binding.tvManually.text = requireActivity().resources.getString(R.string.select_manually)
-            selectTimeHourlyAdapter.selectedItem=position
 
-        }
-        else
-            selectTimeHourlyAdapter.selectedItem=-1
+            bookRideRequest?.hourly = selectTimeHourlyList[position].time
+            binding.tvManually.text =
+                requireActivity().resources.getString(R.string.select_manually)
+            selectTimeHourlyAdapter.selectedItem = position
+
+        } else
+            selectTimeHourlyAdapter.selectedItem = -1
         selectTimeHourlyAdapter.notifyDataSetChanged()
 
     }
+
     private fun openDialog() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.driver_selection_layout)
-        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
 
         val cancelBtn: ImageView = dialog.findViewById(R.id.cancel)
@@ -169,19 +203,43 @@ class SelectTimeHourlyFragment : BaseFragment(), SelectTimeHourlyAdapter.SelectT
 
         favoriteBtn.setOnClickListener {
             val intent: Intent = Intent(requireActivity(), FavouriteDriverActivity::class.java)
-            startActivityForResult(intent, 1);
+            intent.putExtra("data", bookRideRequest)
+            startActivityForResult(intent, 1)
             dialog.dismiss()
 
 
         }
 
         automaticBtn.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this@SelectTimeHourlyFragment)
-                .commit()
+            bookViewModel.bookRide(bookRideRequest!!).observe(requireActivity(), androidx.lifecycle.Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            (activity as HomeScreenActivity).dismissDialog()
+                            resource.data?.let { user ->
+                                if (user.body()?.status.equals("success")) {
+                                    requireActivity().supportFragmentManager.beginTransaction().remove(this@SelectTimeHourlyFragment)
+                                        .commit()
 
-            replaceFragmentFull(BookRideFragment.newInstance("booked"), "booked ride")
-            dialog.dismiss()
+                                    replaceFragmentFull(BookRideFragment.newInstance("booked", "searching driver"), "booked")
+                                    dialog.dismiss()
+                                } else {
+                                    (activity as HomeScreenActivity).setError(user.body()?.msg.toString())
 
+                                }
+                            }
+
+                        }
+                        Status.ERROR -> {
+                            (activity as HomeScreenActivity).dismissDialog()
+                            (activity as HomeScreenActivity).setError(it.message.toString())
+                        }
+                        Status.LOADING -> {
+                            (activity as HomeScreenActivity).showDialog()
+                        }
+                    }
+                }
+            })
 
         }
 

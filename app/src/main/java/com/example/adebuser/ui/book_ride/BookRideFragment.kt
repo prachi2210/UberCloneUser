@@ -4,6 +4,7 @@ package com.example.adebuser.ui.book_ride
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Address
@@ -20,14 +21,23 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.directions.route.*
-import com.example.adebuser.ui.home.HomeScreenActivity
 import com.example.adebuser.R
 import com.example.adebuser.base.BaseFragment
+import com.example.adebuser.base.ViewModelProviderFactory
+import com.example.adebuser.data.api.ApiHelper
+import com.example.adebuser.data.api.RetrofitBuilder
 import com.example.adebuser.databinding.FragmentBookRideBinding
+import com.example.adebuser.ui.book_ride.booking_request.BookRideRequest
 import com.example.adebuser.ui.book_ride.ride_details.RideDetailsFragment
 import com.example.adebuser.ui.book_ride.select_car.CarTypeFragment
+import com.example.adebuser.ui.home.HomeScreenActivity
+import com.example.adebuser.ui.rate.DriverRatingActivity
+import com.example.adebuser.utils.AnimationUtil
 import com.example.adebuser.utils.PermissionUtils
+import com.example.adebuser.utils.Status
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener
@@ -38,6 +48,7 @@ import java.util.*
 class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, OnMapClickListener {
     private var param: String? = null
     private var type: String? = null
+    private var lastRideStatus: String? = null
 
     private var mLocation: Location? = null
     private lateinit var locationCallback: LocationCallback
@@ -48,18 +59,39 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, On
     private var mLocationManager: LocationManager? = null
     private var mLocationRequest: LocationRequest? = null
 
+    private var pickUpName: String? = null
+    private var destinationName: String? = null
+
+
     private var startPoint: LatLng? = null
     private var endPoint: LatLng? = null
-    private var polylines: ArrayList<Polyline>? = null
-
+    private var polyLines: ArrayList<Polyline>? = null
+    private lateinit var bookRideRequest: BookRideRequest
 
     private var _binding: FragmentBookRideBinding? = null
     private val binding get() = _binding!!
+    private var mapListener: OnMapClickListener? = null
+
+    private var driverMarker: Marker? = null
+
+    private lateinit var viewModel: LocationViewModel
+
+    private var bookingStatus: String? = null
+    private var driverRef: String? = null
+    private var driverPhoto: String? = null
+    private var driverName: String? = null
+
+    private lateinit var userStatusViewModel: GetUserBookingStatusViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param = it.getString("status")
+            bookingStatus = it.getString("bookingStatus")
+            driverPhoto = it.getString("driverPhoto")
+            driverRef = it.getString("driverRef")
+            driverName = it.getString("driverName")
         }
     }
 
@@ -84,6 +116,14 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, On
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            mapListener = activity as OnMapClickListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(activity.toString() + " must implement onSomeEventListener")
+        }
+    }
 
     private fun stopLocationUpdates() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
@@ -94,7 +134,7 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, On
         mLocationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         fusedLocationProviderClient.requestLocationUpdates(
-            mLocationRequest,
+            mLocationRequest!!,
             locationCallback,
             Looper.getMainLooper()
         )
@@ -123,7 +163,7 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, On
                     mLocation = location
 
                     googleMap!!.isMyLocationEnabled = true
-                    val geocoder: Geocoder = Geocoder(requireContext(), Locale.getDefault())
+                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
                     val addresses: List<Address> = geocoder.getFromLocation(
                         location.latitude,
@@ -134,9 +174,9 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, On
                     val address: String =
                         addresses[0].getAddressLine(0)
 
-
-                 //   binding.tvCurrentAddress.text = addresses[0].featureName
-                      binding.tvCurrentAddress.text = address
+                    pickUpName = address
+                    //   binding.tvCurrentAddress.text = addresses[0].featureName
+                    binding.tvCurrentAddress.text = pickUpName
                     val ltlng = LatLng(location.latitude, location.longitude)
                     val cameraUpdate = CameraUpdateFactory.newLatLngZoom(
                         ltlng, 16f
@@ -198,7 +238,7 @@ class BookRideFragment : BaseFragment(), OnMapReadyCallback, RoutingListener, On
 
     override fun onPause() {
         super.onPause()
-stopLocationUpdates()
+        stopLocationUpdates()
     }
 
     override fun onStart() {
@@ -228,6 +268,16 @@ stopLocationUpdates()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        bookRideRequest = BookRideRequest()
+
+
+
+        viewModel = this.run {
+            ViewModelProvider(this).get(LocationViewModel::class.java)
+        }
+
+
+
 
         type = (activity as HomeScreenActivity).userPreferences.getTimeType()
 
@@ -239,19 +289,60 @@ stopLocationUpdates()
 
 
         if (param == "booked") {
-            binding.tvOpenFragment.text = "Driver is 15 min away from you"
+
+            when (bookingStatus) {
+                "acceptBooking" -> {
+
+                    binding.tvOpenFragment.text = getString(R.string.driver_on_way)
+
+                    openFragmentSmall(RideDetailsFragment.newInstance(bookingStatus!!), "ride")
+                }
+
+                "rejectBooking" -> {
+                    binding.tvOpenFragment.text =
+                        getString(R.string.choose_your_car_and_gear_type)
+                }
+
+                "ride started" -> {
+                    binding.tvOpenFragment.text = getString(R.string.ride_start_notification)
+                }
+
+                "ride completed" -> {
+                    showRideCompletedDialog()
+                    param = ""
+                }
+
+                "ride canceled" -> {
+                    binding.tvOpenFragment.text = getString(R.string.choose_your_car_and_gear_type)
+                }
+
+
+                else -> {
+                    binding.tvOpenFragment.text = getString(R.string.searching_driver)
+                }
+            }
+
 
         } else {
             binding.tvOpenFragment.text = getString(R.string.choose_your_car_and_gear_type)
-
         }
 
 
         binding.tvOpenFragment.setOnClickListener {
-            if (param == "booked") {
-                openFragmentSmall(RideDetailsFragment(), "ride")
+
+
+            if (lastRideStatus == "ride completed" || lastRideStatus.isNullOrEmpty() || lastRideStatus == "ride canceled" || lastRideStatus == "rejectBooking") {
+
+                bookRideRequest.userRef =
+                    (activity as HomeScreenActivity).userPreferences.getUserREf()
+                bookRideRequest.pickupLat = mLocation?.latitude.toString()
+                bookRideRequest.pickupLong = mLocation?.longitude.toString()
+                bookRideRequest.pickUpName = pickUpName
+                bookRideRequest.dropOffName = destinationName
+                openFragmentSmall(CarTypeFragment.newInstance(type!!, bookRideRequest), "car")
             } else {
-                openFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+
+                openFragmentSmall(RideDetailsFragment.newInstance(bookingStatus!!), "ride")
             }
         }
 
@@ -271,14 +362,168 @@ stopLocationUpdates()
 //        })
     }
 
+    private fun setUserStatusViewModel() {
+        userStatusViewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelProviderFactory(ApiHelper(RetrofitBuilder.apiService))
+        ).get(GetUserBookingStatusViewModel::class.java)
+
+
+
+
+        userStatusViewModel.getUserStatus(
+            (activity as HomeScreenActivity).userPreferences.getUserREf(),
+        ).observe(requireActivity(), {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        //    (activity as HomeScreenActivity).dismissDialog()
+
+                        resource.data?.let { user ->
+                            if (user.body()?.status.equals("success")) {
+
+                                lastRideStatus = user.body()?.lastRideStatus
+
+                                if (bookingStatus == null) {
+                                    bookingStatus = lastRideStatus
+                                }
+
+
+                                if (param != "booked") {
+                                    when (user.body()?.lastRideStatus) {
+
+                                        "acceptBooking" -> {
+
+                                            binding.tvOpenFragment.text =
+                                                getString(R.string.driver_on_way)
+
+                                            openFragmentSmall(
+                                                RideDetailsFragment.newInstance(
+                                                    bookingStatus!!
+                                                ), "ride"
+                                            )
+                                        }
+
+                                        "rejectBooking" -> {
+                                            binding.tvOpenFragment.text =
+                                                getString(R.string.choose_your_car_and_gear_type)
+
+                                        }
+
+                                        "ride started" -> {
+                                            binding.tvOpenFragment.text =
+                                                getString(R.string.ride_start_notification)
+                                        }
+
+                                        "bookingConfirmation" -> {
+                                            binding.tvOpenFragment.text =
+                                                getString(R.string.searching_driver)
+                                        }
+                                        else -> {
+                                            binding.tvOpenFragment.text =
+                                                getString(R.string.choose_your_car_and_gear_type)
+                                        }
+
+                                    }
+                                }
+                            } else {
+                                (activity as HomeScreenActivity).setError(user.body()?.msg.toString())
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        // (activity as HomeScreenActivity).dismissDialog()
+                        (activity as HomeScreenActivity).setError(it.message.toString())
+
+                    }
+                    Status.LOADING -> {
+                        //    (activity as HomeScreenActivity).showDialog()
+                    }
+                }
+            }
+        })
+
+
+    }
+
+    private fun showRideCompletedDialog() {
+
+        val builder =
+            androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        builder.setTitle("Alert!")
+        builder.setMessage(getString(R.string.add_review_message))
+        builder.setCancelable(true)
+        builder.setPositiveButton(
+            "Yes"
+        ) { dialog, which ->
+            val intent = Intent(requireContext(), DriverRatingActivity::class.java)
+            intent.putExtra("driverName", driverName)
+            intent.putExtra("driverPhoto", driverPhoto)
+            intent.putExtra("driverRef", driverRef)
+            startActivity(intent)
+
+        }
+        builder.setNegativeButton("Cancel")
+        { dialog, which ->
+
+            dialog.dismiss()
+
+        }
+        builder.show()
+    }
+
+    private fun setAnimation(startPoint: LatLng?) {
+        AnimationUtil.animateMarkerTo(driverMarker, startPoint)
+
+        val cameraPosition = CameraPosition.Builder()
+            .target(startPoint!!) // Sets the center of the map to location user
+            .zoom(14f) // Sets the zoom
+            .bearing(90f) // Sets the orientation of the camera to east
+            .tilt(40f) // Sets the tilt of the camera to 30 degrees
+            .build() // Creates a CameraPosition from the builder
+
+        if (googleMap != null) {
+            googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
+    }
+
 
     override fun onResume() {
         super.onResume()
         setBackgroundAccordingToType()
-        startLocationUpdates()
+        setUserStatusViewModel()
+        when {
+            PermissionUtils.isAccessFineLocationGranted(requireContext()) -> {
+                when {
+                    PermissionUtils.isLocationEnabled(requireContext()) -> {
+                        startLocationUpdates()
+
+                    }
+                    else -> {
+                        PermissionUtils.showGPSNotEnabledDialog(requireContext())
+                    }
+                }
+            }
+            else -> {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    LOCATION_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+
+
+        viewModel.setPickupLatLng.observe(this, androidx.lifecycle.Observer {
+
+            Log.e("HIII", viewModel.setPickupLatLng.value.toString())
+
+        })
+
+        viewModel.setDropOffLatLng.observe(this, androidx.lifecycle.Observer {
+            Log.e("HIII", viewModel.setDropOffLatLng.value.toString())
+        })
     }
-
-
 
 
     private fun setButtonsState() {
@@ -286,10 +531,20 @@ stopLocationUpdates()
             type = "now"
             (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
             setBackgroundAccordingToType()
-            if (param == "booked") {
-                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            if (lastRideStatus == "ride completed" || lastRideStatus.isNullOrEmpty()) {
+
+                bookRideRequest.userRef =
+                    (activity as HomeScreenActivity).userPreferences.getUserREf()
+                bookRideRequest.pickupLat = mLocation?.latitude.toString()
+                bookRideRequest.pickupLong = mLocation?.longitude.toString()
+                bookRideRequest.pickUpName = pickUpName
+                bookRideRequest.dropOffName = destinationName
+                replaceFragmentSmall(
+                    CarTypeFragment.newInstance(type!!, bookRideRequest),
+                    "car"
+                )
             } else {
-                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+                replaceFragmentSmall(RideDetailsFragment.newInstance(bookingStatus!!), "ride")
             }
         }
 
@@ -298,10 +553,20 @@ stopLocationUpdates()
             type = "day"
             (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
             setBackgroundAccordingToType()
-            if (param == "booked") {
-                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            if (lastRideStatus == "ride completed" || lastRideStatus.isNullOrEmpty()) {
+
+                bookRideRequest.userRef =
+                    (activity as HomeScreenActivity).userPreferences.getUserREf()
+                bookRideRequest.pickupLat = mLocation?.latitude.toString()
+                bookRideRequest.pickupLong = mLocation?.longitude.toString()
+                bookRideRequest.pickUpName = pickUpName
+                bookRideRequest.dropOffName = destinationName
+                replaceFragmentSmall(
+                    CarTypeFragment.newInstance(type!!, bookRideRequest),
+                    "car"
+                )
             } else {
-                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+                replaceFragmentSmall(RideDetailsFragment.newInstance(bookingStatus!!), "ride")
             }
 
         }
@@ -312,10 +577,20 @@ stopLocationUpdates()
             type = "regular"
             (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
             setBackgroundAccordingToType()
-            if (param == "booked") {
-                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            if (lastRideStatus == "ride completed" || lastRideStatus.isNullOrEmpty()) {
+
+                bookRideRequest.userRef =
+                    (activity as HomeScreenActivity).userPreferences.getUserREf()
+                bookRideRequest.pickupLat = mLocation?.latitude.toString()
+                bookRideRequest.pickupLong = mLocation?.longitude.toString()
+                bookRideRequest.pickUpName = pickUpName
+                bookRideRequest.dropOffName = destinationName
+                replaceFragmentSmall(
+                    CarTypeFragment.newInstance(type!!, bookRideRequest),
+                    "car"
+                )
             } else {
-                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+                replaceFragmentSmall(RideDetailsFragment.newInstance(bookingStatus!!), "ride")
             }
 
         }
@@ -324,10 +599,20 @@ stopLocationUpdates()
             type = "hourly"
             (activity as HomeScreenActivity).userPreferences.saveCabTime(type!!)
             setBackgroundAccordingToType()
-            if (param == "booked") {
-                replaceFragmentSmall(RideDetailsFragment(), "ride")
+            if (lastRideStatus == "ride completed" || lastRideStatus.isNullOrEmpty()) {
+
+                bookRideRequest.userRef =
+                    (activity as HomeScreenActivity).userPreferences.getUserREf()
+                bookRideRequest.pickupLat = mLocation?.latitude.toString()
+                bookRideRequest.pickupLong = mLocation?.longitude.toString()
+                bookRideRequest.pickUpName = pickUpName
+                bookRideRequest.dropOffName = destinationName
+                replaceFragmentSmall(
+                    CarTypeFragment.newInstance(type!!, bookRideRequest),
+                    "car"
+                )
             } else {
-                replaceFragmentSmall(CarTypeFragment.newInstance(type!!), "car")
+                replaceFragmentSmall(RideDetailsFragment.newInstance(bookingStatus!!), "ride")
             }
 
         }
@@ -372,13 +657,30 @@ stopLocationUpdates()
     companion object {
 
         @JvmStatic
-        fun newInstance(param: String) =
+        fun newInstance(param: String, bookingType: String) =
             BookRideFragment().apply {
                 arguments = Bundle().apply {
                     putString("status", param)
+                    putString("bookingStatus", bookingType)
 
                 }
             }
+
+        fun newInstanceForRating(
+            param: String,
+            bookingType: String,
+            driverRef: String?,
+            driverName: String?,
+            driverPhoto: String?
+        ) = BookRideFragment().apply {
+            arguments = Bundle().apply {
+                putString("status", param)
+                putString("bookingStatus", bookingType)
+                putString("driverRef", driverRef)
+                putString("driverName", driverName)
+                putString("driverPhoto", driverPhoto)
+            }
+        }
     }
 
 
@@ -414,9 +716,6 @@ stopLocationUpdates()
                     //if permission granted.
                     getLocation()
 
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
                 return
             }
@@ -458,17 +757,16 @@ stopLocationUpdates()
     }
 
     override fun onRoutingSuccess(route: ArrayList<Route>?, shortestRouteIndex: Int) {
-        val center = CameraUpdateFactory.newLatLng(startPoint)
-        val zoom = CameraUpdateFactory.zoomTo(16f)
-        if (polylines != null) {
-            polylines?.clear()
+
+        if (polyLines != null) {
+            polyLines?.clear()
         }
         val polyOptions = PolylineOptions()
         var polylineStartLatLng: LatLng? = null
         var polylineEndLatLng: LatLng? = null
 
 
-        polylines = ArrayList<Polyline>()
+        polyLines = ArrayList<Polyline>()
         //add route(s) to the map using polyline
         //add route(s) to the map using polyline
         for (i in route!!.indices) {
@@ -480,7 +778,7 @@ stopLocationUpdates()
                 polylineStartLatLng = polyline.points[0]
                 val k = polyline.points.size
                 polylineEndLatLng = polyline.points[k - 1]
-                polylines?.add(polyline)
+                polyLines?.add(polyline)
             }
         }
 
@@ -489,20 +787,31 @@ stopLocationUpdates()
 
         //Add Marker on route starting position
         val startMarker = MarkerOptions()
-        startMarker.position(polylineStartLatLng)
+        startMarker.position(polylineStartLatLng!!)
         startMarker.title("My Location")
-        googleMap?.addMarker(startMarker)
+        // googleMap?.addMarker(startMarker)
 
+        driverMarker = googleMap?.addMarker(startMarker)
         //Add Marker on route ending position
 
         //Add Marker on route ending position
         val endMarker = MarkerOptions()
-        endMarker.position(polylineEndLatLng)
+        endMarker.position(polylineEndLatLng!!)
         endMarker.title("Destination")
         googleMap?.addMarker(endMarker)
 
 
-
+//        AnimationUtil.animateMarkerTo(driverMarker, polylineEndLatLng)
+//        val cameraPosition = CameraPosition.Builder()
+//            .target(polylineEndLatLng) // Sets the center of the map to location user
+//            .zoom(15f) // Sets the zoom
+//            .bearing(30f) // Sets the orientation of the camera to east
+//            .tilt(40f) // Sets the tilt of the camera to 30 degrees
+//            .build() // Creates a CameraPosition from the builder
+//
+//        if (googleMap != null) {
+//            googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+//        }
 
     }
 
@@ -510,13 +819,17 @@ stopLocationUpdates()
     }
 
     override fun onMapClick(latLng: LatLng) {
+
+        //   viewModel.setLatLong(latLng)
+
+
         endPoint = latLng
         googleMap?.clear()
         startPoint = LatLng(
             mLocation!!.latitude,
             mLocation!!.longitude
         )
-        val geocoder: Geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
         val addresses: List<Address> = geocoder.getFromLocation(
             endPoint!!.latitude,
@@ -527,10 +840,35 @@ stopLocationUpdates()
         val address: String =
             addresses[0].getAddressLine(0)
 
-        binding.tvDestinationAddress.text = address
+        bookRideRequest.dropOffLat = endPoint?.latitude.toString()
+        bookRideRequest.dropOffLong = endPoint?.longitude.toString()
+
+        destinationName = address
+
+        binding.tvDestinationAddress.text = destinationName
         //start route finding
         findroutes(startPoint, endPoint)
+
+        mapListener?.onMapClick(
+            LatLng(
+                mLocation!!.latitude,
+                mLocation!!.longitude
+            ),
+            latLng,
+            type,
+            pickUpName.toString(),
+            destinationName.toString()
+        )
     }
 
+    interface OnMapClickListener {
+        fun onMapClick(
+            latLngPickUp: LatLng,
+            latLngDropOff: LatLng,
+            type: String?,
+            pickUpName: String,
+            dropOffName: String
+        )
 
+    }
 }

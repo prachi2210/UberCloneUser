@@ -40,6 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
     val userPreferences: PreferenceManager by lazy {
         PreferenceManager(this)
     }
+
     fun getEpochTime(): Long {
         val millis = System.currentTimeMillis()
         val seconds = millis / 1000
@@ -141,27 +142,27 @@ fun setDefaultLatLng() {
     }
 
 
-/*
-private fun generateFcmToken() {
-    FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-        if (!task.isSuccessful) {
-            return@OnCompleteListener
-        }
-        // Get new FCM registration token
-        val token = task.result
-        userPreferences.saveDeviceToken(token)
+    /*
+    private fun generateFcmToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            val token = task.result
+            userPreferences.saveDeviceToken(token)
 
-    })
-}
-*/
-open fun openFragment(fragment: Fragment, tag: String) {
-    addSlidingFragment(
-     supportFragmentManager,
-        fragment,
-        tag,
-        R.id.flContainerSlide
-    )
-}
+        })
+    }
+    */
+    open fun openFragment(fragment: Fragment, tag: String) {
+        addSlidingFragment(
+            supportFragmentManager,
+            fragment,
+            tag,
+            R.id.flContainerSlide
+        )
+    }
 
     open fun addSlidingFragment(
         fragmentManager: FragmentManager,
@@ -171,7 +172,7 @@ open fun openFragment(fragment: Fragment, tag: String) {
         fragmentManager.beginTransaction().setCustomAnimations(
             R.anim.slide_up_dialog, 0, 0,
             R.anim.slide_down_dialog
-        ).add(container, fragment, tag).addToBackStack(null).commit()
+        ).replace(container, fragment, tag).addToBackStack(null).commit()
     }
 
 
@@ -238,6 +239,7 @@ open fun openFragment(fragment: Fragment, tag: String) {
         }
         return ret
     }
+
     fun disappearKeyboard() {
         val imm =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -250,6 +252,7 @@ open fun openFragment(fragment: Fragment, tag: String) {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
     open fun backBtnPressed(view: View?) {
         finish()
     }
@@ -271,6 +274,16 @@ open fun openFragment(fragment: Fragment, tag: String) {
             .addToBackStack(name)
             .commitAllowingStateLoss()
     }
+
+    open fun openFragmentSmall(fragment: Fragment, tag: String) {
+        addSlidingFragment(
+            supportFragmentManager,
+            fragment,
+            tag,
+            R.id.flContainerSlide
+        )
+    }
+
 
     fun addFragmentWithoutBackstack(
         containerId: Int,
@@ -327,9 +340,6 @@ open fun openFragment(fragment: Fragment, tag: String) {
             string,
             Snackbar.LENGTH_SHORT
         ).show()
-
-
-
 
 
     }

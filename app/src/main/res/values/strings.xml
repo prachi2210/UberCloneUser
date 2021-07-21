@@ -110,4 +110,13 @@
     <string name="required_for_this_app">Required for this app</string>
     <string name="enable_now">Enable Now</string>
     <string name="location_permission_not_granted">Location Permission not granted</string>
+    <string name="favorite_rider">Favourite Rider</string>
+    <string name="destination_error">Please add destination to continue</string>
+    <string name="pick_up_error">Please add pickup time to continue</string>
+    <string name="channel_id">" com.example.adebuser"</string>
+    <string name="ride_start_notification">You are on your way</string>
+    <string name="add_review_message">Your Ride is completed, would you like to give driver a rating?</string>
+    <string name="searching_driver">Searching for your driver</string>
+    <string name="driver_on_way">Driver is on the way</string>
+    <string name="cancel_booking_alert">Are you sure you want to cancel the booking?</string>
 </resources>

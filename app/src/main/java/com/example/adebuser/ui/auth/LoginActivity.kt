@@ -3,6 +3,7 @@ package com.example.adebuser.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,12 +18,16 @@ import com.example.adebuser.utils.ActivityStarter
 import com.example.adebuser.utils.Constants
 import com.example.adebuser.utils.Status
 import com.example.adebuser.base.BaseActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var viewModel: AuthViewModel
+
+    var token = ""
 
     companion object {
 
@@ -36,6 +41,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        generateFcmToken()
         setupViewModel()
     }
 
@@ -141,7 +147,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 viewModel.login(
                     binding.etMobile.text.toString().trim(),
                     binding.etPassword.text.toString().trim(),
-                  Constants.DEVICE_TOKEN
+                  token
                 ).observe(this, Observer {
                     it?.let { resource ->
                         when (resource.status) {
@@ -176,6 +182,19 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 })
             }
         }
+
+    }
+
+    private fun generateFcmToken()  {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+           token = task.result
+            Log.e("PRACHI", token)
+
+        })
 
     }
 }

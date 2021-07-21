@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitBuilder {
-    const val BASE_URL = "http://192.168.1.59/adebApp/"
+    const val BASE_URL = "http://xpertidea.com/mobile/adebApp/api/v1/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().also {
         it.level = HttpLoggingInterceptor.Level.BODY

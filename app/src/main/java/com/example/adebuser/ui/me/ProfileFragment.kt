@@ -1,6 +1,7 @@
 package com.example.adebuser.ui.me
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,8 +50,9 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvUsername.text=(activity as HomeScreenActivity).userPreferences.getName()
-        binding.tvPhoneNumber.text=(activity as HomeScreenActivity).userPreferences.getPhoneNumber()
+        binding.tvUsername.text = (activity as HomeScreenActivity).userPreferences.getName()
+        binding.tvPhoneNumber.text =
+            (activity as HomeScreenActivity).userPreferences.getPhoneNumber()
         setupViewModel()
         binding.tvEditProfile.setOnClickListener(this)
         binding.tvSupport.setOnClickListener(this)
@@ -62,7 +64,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         binding.ivArrowSettings.setOnClickListener(this)
         binding.ivRightPlay.setOnClickListener(this)
         binding.tvRate.setOnClickListener(this)
-     /*   binding.tvRate.setOnClickListener(this)*/
+        /*   binding.tvRate.setOnClickListener(this)*/
     }
 
     companion object {
@@ -95,13 +97,15 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             }
 
             binding.tvFavDriver -> {
-                ActivityStarter.of(FavouriteDriverActivity.getStartIntent(requireActivity()))
-                    .startFrom(this)
+                val intent: Intent = Intent(requireContext(), FavouriteDriverActivity::class.java)
+                intent.putExtra("from", "profile")
+                startActivity(intent)
             }
 
             binding.ivArrowFav -> {
-                ActivityStarter.of(FavouriteDriverActivity.getStartIntent(requireActivity()))
-                    .startFrom(this)
+                val intent: Intent = Intent(requireContext(), FavouriteDriverActivity::class.java)
+                intent.putExtra("from", "profile")
+                startActivity(intent)
             }
             binding.tvSettings -> {
                 ActivityStarter.of(SettingScreen.getStartIntent(requireActivity()))
@@ -116,15 +120,14 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 ActivityStarter.of(DriverRatingActivity.getStartIntent(requireActivity()))
                     .startFrom(this)
             }
-            binding.ivArrowRate->{
+            binding.ivArrowRate -> {
                 ActivityStarter.of(DriverRatingActivity.getStartIntent(requireActivity()))
                     .startFrom(this)
             }
         }
     }
 
-    private fun logoutDialog()
-    {
+    private fun logoutDialog() {
         AlertDialog.Builder(requireActivity())
             .setTitle(getString(R.string.logout))
             .setMessage(R.string.logout_confirm_message)
